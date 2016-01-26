@@ -1,1 +1,1 @@
-ICI
+Projet Taquin en Ingénierie Logicielle, L3SC

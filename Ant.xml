@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dut14-en25-s3a-g3-chuchurocket" default=""
+	basedir=".">
+	<property name="version" value="V1" />
+
+
+	<target name="clean">
+		<delete dir="bin" />
+		<echo message="Suppression du dossier bin terminee" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" includeantruntime="false" />
+		<echo message="Compilation du projet dans le dossier bin terminee" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="versions/Taquin${version}.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="Principale" />
+			</manifest>
+		</jar>
+		<echo message="Creation du fichier Jar dans le dossier versions terminee" />
+	</target>
+
+	<target name="run">
+		<java jar="versions/Taquin${version}.jar" fork="true" />
+	</target>
+
+</project>

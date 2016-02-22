@@ -14,10 +14,8 @@ public class MoteurJeu {
 	}
 	
 	public void play(){
-		long timeDebut = System.currentTimeMillis();
-		long timeFin;
-		long timeDebutAction;
-		long timeAction;
+		jeu.Pas();
+		moteurGraphique.Affiche();
 	}
 	
 }

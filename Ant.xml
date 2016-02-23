@@ -16,16 +16,16 @@
 	</target>
 
 	<target name="jar" depends="compile">
-		<jar destfile="versions/Taquin${version}.jar" basedir="bin">
+		<jar destfile="dist/Taquin${version}.jar" basedir="bin">
 			<manifest>
-				<attribute name="Main-Class" value="Principale" />
+				<attribute name="Main-Class" value="Main" />
 			</manifest>
 		</jar>
-		<echo message="Creation du fichier Jar dans le dossier versions terminee" />
+		<echo message="Creation du fichier Jar dans le dossier dist terminee" />
 	</target>
 
 	<target name="run">
-		<java jar="versions/Taquin${version}.jar" fork="true" />
+		<java jar="dist/Taquin${version}.jar" fork="true" />
 	</target>
 
 </project>

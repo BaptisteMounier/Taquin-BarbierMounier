@@ -27,5 +27,7 @@
 	<target name="run">
 		<java jar="dist/Taquin${version}.jar" fork="true" />
 	</target>
+	
+	<target name="build_run" depends="jar,run"/>
 
 </project>

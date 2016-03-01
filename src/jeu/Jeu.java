@@ -1,14 +1,18 @@
 package jeu;
 
+import java.util.Scanner;
+
 public class Jeu {
 	
 	private Plateau plateau;
+	private int taille;
 	
 	public Jeu(){
 		this.plateau = null;
 	}
 	
 	public void initialisation(){
+		this.taille = 4;
 		Tuile[][] tuiles = new Tuile[4][4];
 		tuiles[0][0] = new Tuile(1);
 		tuiles[0][1] = new Tuile(2);
@@ -30,6 +34,14 @@ public class Jeu {
 	}
 	
 	public void Pas(){
+		this.affiche();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Quel déplacement souhaitez-vous ?");
+		String com = sc.nextLine();
+		this.commande(com);
+	}
+	
+	public void commande(String c){
 		
 	}
 	
@@ -43,6 +55,17 @@ public class Jeu {
 
 	public void setPlateau(Plateau plateau) {
 		this.plateau = plateau;
+	}
+	
+	public void affiche(){
+		Tuile[][] tuiles = this.getTuiles();
+		for(int i = 0;i < tuiles.length;i++){
+			for(int j = 0;j < tuiles[i].length;j++){
+				System.out.print(tuiles[i][j]+" ");
+			}
+			System.out.print("\n");
+		}
+		System.out.print("==========\n");
 	}
 
 }

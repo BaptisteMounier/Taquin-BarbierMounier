@@ -12,7 +12,10 @@ public class MoteurJeu {
 	}
 	
 	public void play(){
-		jeu.Pas();
+		jeu.initialisation();
+		while(true){
+			jeu.Pas();
+		}
 	}
 	
 }

@@ -14,9 +14,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		if(args.length == 0){
-			MainGUI.main(args);
+			System.out.println("Lancement du programme sans GUI\n==========\n");
+			Jeu jeu = new Jeu();
+			MoteurJeu moteurJeu = new MoteurJeu(jeu);
+			moteurJeu.play();
 		}else{
-			System.out.println("Lancement du programme sans GUI");
+			MainGUI.main(args);
 		}
 	}
 

@@ -9,7 +9,10 @@ public class Tuile {
 	}
 	
 	public String toString(){
-		return Integer.toString(this.indice);
+		if(this.indice >= 10)
+			return Integer.toString(this.indice);
+		else
+			return "0"+Integer.toString(this.indice);
 	}
 
 }

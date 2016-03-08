@@ -113,6 +113,14 @@ public class Jeu {
 		this.plateau = plateau;
 	}
 	
+	public int getTailleX(){
+		return this.nb_tuile_x;
+	}
+	
+	public int getTailleY(){
+		return this.nb_tuile_y;
+	}
+	
 	public void end() throws WinException{
 		boolean gagne = true;
 		int cpt = 1;
@@ -121,6 +129,7 @@ public class Jeu {
 			for(int j = 0;j < tuiles[i].length;j++){
 				if(tuiles[j][i].getIndice()!=cpt)
 					gagne = false;
+				cpt++;
 			}
 		}
 		if(gagne)

@@ -8,7 +8,7 @@ public class WinException extends Exception {
 	 * Constructeur de WinException
 	 * @param message message de victoire
 	 */
-	public WinException(String message) {
-		super(message);
+	public WinException() {
+		super("Victoire !");
 	}
 }

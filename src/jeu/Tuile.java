@@ -32,5 +32,9 @@ public class Tuile {
 	public void set_hauteur(int y) {
 		this.hauteur = y;
 	}
+	
+	public int getIndice(){
+		return this.indice;
+	}
 
 }

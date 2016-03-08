@@ -16,6 +16,12 @@ public class Plateau {
 		this.tuiles = tuiles;
 	}
 	
+	public void switchTuiles(int x_a, int y_a, int x_b, int y_b){
+		Tuile temporaire = this.tuiles[x_a][y_a];
+		this.tuiles[x_a][y_a] = this.tuiles[x_b][y_b];
+		this.tuiles[x_b][y_b] = temporaire;
+	}
+	
 	public String toString(){
 		String string = "";
 		for(int i = 0;i < this.tuiles.length;i++){

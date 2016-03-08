@@ -1,6 +1,7 @@
 package jeu;
 
 import application.*;
+import exceptions.WinException;
 
 public class MoteurJeu {
 	
@@ -12,9 +13,14 @@ public class MoteurJeu {
 	}
 	
 	public void play(){
-		jeu.initialisation();
-		while(true){
-			jeu.Pas();
+		try{
+			jeu.initialisation();
+			while(true){
+				jeu.Pas();
+			}
+		} catch (WinException e) {
+			System.out.println("Victoire !");
+			// affichage écran de victoire
 		}
 	}
 	

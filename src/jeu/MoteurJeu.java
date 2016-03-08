@@ -21,7 +21,13 @@ public class MoteurJeu {
 		} catch (WinException e) {
 			System.out.println("Victoire !");
 			// affichage écran de victoire
+			this.newGame();
 		}
+	}
+	
+	public void newGame(){
+		System.out.println("Nouvelle partie !");
+		this.play();
 	}
 	
 }

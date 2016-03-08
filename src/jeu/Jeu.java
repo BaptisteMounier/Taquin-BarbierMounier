@@ -1,27 +1,34 @@
 package jeu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jeu {
 	
 	private Plateau plateau;
 	private int taille;
+	private ArrayList<Integer> idTuiles;
+	private int nb_tuile_x;
+	private int nb_tuile_y;
 	
 	public Jeu(){
 		this.plateau = null;
+		this.nb_tuile_x = 4;
+		this.nb_tuile_y = 4;
+		this.idTuiles = new ArrayList<Integer>();
+		for(int i = 1;i <= this.nb_tuile_x*this.nb_tuile_y;i++){
+			this.idTuiles.add(this.idTuiles.size(), i);
+		}
 	}
 	
-	public int NB_TUILE_X = 4;
-	
-	public int NB_TUILE_Y = 4;
-	
 	public void initialisation(){
-		int n=1;
-		Tuile[][] tuiles = new Tuile[NB_TUILE_X][NB_TUILE_Y];
-		for (int i=0; i < NB_TUILE_X; i++){
-			for (int j=0; j < NB_TUILE_Y; j++){
-				tuiles[i][j]= new Tuile(n);
-				n++;
+		Tuile[][] tuiles = new Tuile[nb_tuile_x][nb_tuile_y];
+		for (int i=0; i < nb_tuile_x; i++){
+			for (int j=0; j < nb_tuile_y; j++){
+				int alea = (int) (Math.random()*this.idTuiles.size());
+				int id = this.idTuiles.get(alea);
+				tuiles[i][j]= new Tuile(id);
+				this.idTuiles.remove(alea);
 			}
 		}
 		this.plateau = new Plateau(tuiles);

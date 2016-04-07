@@ -16,7 +16,7 @@ public class MoteurJeu {
 		try{
 			jeu.initialisation();
 			while(true){
-				jeu.Pas();
+				jeu.pas();
 			}
 		} catch (WinException e) {
 			System.out.println("Victoire !");

@@ -10,35 +10,57 @@ public class Jeu {
 	private Plateau plateau;
 	private int taille;
 	private ArrayList<Integer> idTuiles;
-	private int nb_tuile_x;
-	private int nb_tuile_y;
+	private int nbTuileX;
+	private int nbTuileY;
+	private int nbMelange;
 	
 	public Jeu(){
 		this.plateau = null;
 		this.taille = 4;
-		this.nb_tuile_x = this.taille;
-		this.nb_tuile_y = this.taille;
+		this.nbTuileX = this.taille;
+		this.nbTuileY = this.taille;
+		this.nbMelange = 100;
 		this.idTuiles = new ArrayList<Integer>();
-		for(int i = 1;i <= this.nb_tuile_x*this.nb_tuile_y;i++){
+		for(int i = 1;i <= this.nbTuileX*this.nbTuileY;i++){
 			this.idTuiles.add(this.idTuiles.size(), i);
 		}
 	}
 	
 	public void initialisation(){
-		Tuile[][] tuiles = new Tuile[nb_tuile_x][nb_tuile_y];
-		for (int i=0; i < nb_tuile_x; i++){
-			for (int j=0; j < nb_tuile_y; j++){
-				int alea = (int) (Math.random()*this.idTuiles.size());
-				int id = this.idTuiles.get(alea);
-				tuiles[i][j]= new Tuile(id);
-				this.idTuiles.remove(alea);
+		Tuile[][] tuiles = new Tuile[nbTuileX][nbTuileY];
+		int id = 1;
+		for (int i=0; i < nbTuileX; i++){
+			for (int j=0; j < nbTuileY; j++){
+				tuiles[j][i]= new Tuile(id);
+				id++;
 			}
 		}
 		this.plateau = new Plateau(tuiles);
+		this.melanger();
 		this.affiche();
 	}
 	
-	public void Pas() throws WinException{
+	public void melanger(){
+		for(int i = 0;i < this.nbMelange;i++){
+			int alea = (int)(Math.random()*4);
+			switch (alea){
+				case 0:
+					this.commande("z");
+					break;
+				case 1:
+					this.commande("s");
+					break;
+				case 2:
+					this.commande("q");
+					break;
+				case 3:
+					this.commande("d");
+					break;
+			}
+		}
+	}
+	
+	public void pas() throws WinException{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Quel déplacement souhaitez-vous ?");
 		String com = sc.nextLine();
@@ -51,9 +73,9 @@ public class Jeu {
 		boolean find = false;
 		switch(c){
 		case "z":
-			for(int i = 0;i < this.nb_tuile_x && !find;i++){
-				for(int j = 0;j < this.nb_tuile_y-1 && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nb_tuile_x*this.nb_tuile_y){
+			for(int i = 0;i < this.nbTuileX && !find;i++){
+				for(int j = 0;j < this.nbTuileY-1 && !find;j++){
+					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nbTuileX*this.nbTuileY){
 						this.plateau.switchTuiles(i, j, i, j+1);
 						find = true;
 					}
@@ -61,9 +83,9 @@ public class Jeu {
 			}
 			break;
 		case "s":
-			for(int i = 0;i < this.nb_tuile_x && !find;i++){
-				for(int j = 1;j < this.nb_tuile_y && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nb_tuile_x*this.nb_tuile_y){
+			for(int i = 0;i < this.nbTuileX && !find;i++){
+				for(int j = 1;j < this.nbTuileY && !find;j++){
+					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nbTuileX*this.nbTuileY){
 						this.plateau.switchTuiles(i, j, i, j-1);
 						find = true;
 					}
@@ -71,9 +93,9 @@ public class Jeu {
 			}
 			break;
 		case "q":
-			for(int i = 0;i < this.nb_tuile_x-1 && !find;i++){
-				for(int j = 0;j < this.nb_tuile_y && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nb_tuile_x*this.nb_tuile_y){
+			for(int i = 0;i < this.nbTuileX-1 && !find;i++){
+				for(int j = 0;j < this.nbTuileY && !find;j++){
+					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nbTuileX*this.nbTuileY){
 						this.plateau.switchTuiles(i, j, i+1, j);
 						find = true;
 					}
@@ -81,9 +103,9 @@ public class Jeu {
 			}
 			break;
 		case "d":
-			for(int i = 1;i < this.nb_tuile_x && !find;i++){
-				for(int j = 0;j < this.nb_tuile_y && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nb_tuile_x*this.nb_tuile_y){
+			for(int i = 1;i < this.nbTuileX && !find;i++){
+				for(int j = 0;j < this.nbTuileY && !find;j++){
+					if(this.plateau.GetTuiles()[i][j].getIndice() == this.nbTuileX*this.nbTuileY){
 						this.plateau.switchTuiles(i, j, i-1, j);
 						find = true;
 					}
@@ -114,11 +136,11 @@ public class Jeu {
 	}
 	
 	public int getTailleX(){
-		return this.nb_tuile_x;
+		return this.nbTuileX;
 	}
 	
 	public int getTailleY(){
-		return this.nb_tuile_y;
+		return this.nbTuileY;
 	}
 	
 	public void end() throws WinException{

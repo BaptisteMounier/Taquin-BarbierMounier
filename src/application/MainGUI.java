@@ -6,14 +6,12 @@ import javax.print.DocFlavor.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.layout.*;
+
 
 public class MainGUI extends Application{
-	
 	
 	public Scene construitScene() throws IOException{
 		java.net.URL fxmlURL = getClass().getResource("GameView.fxml");
@@ -22,23 +20,17 @@ public class MainGUI extends Application{
 		return node;
 
 	}
-
 	public void start(Stage stage) throws Exception {
-        stage.setTitle("Taquin");
-        stage.setScene(construitScene());
-        
-        
-		Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+		Parent root = FXMLLoader.load(getClass().getResource("GameView.fxml"));
+         
         Scene scene = new Scene(root);
         boolean add = scene.getStylesheets().add("css/styles.css");
-        
         stage.setScene(scene);
         stage.show();
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-		
-}
+     	
+     	public static void main(String[] args) {
+     		launch(args);
+     	}
+     		
+     }

@@ -1,7 +1,7 @@
 package jeu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 import exceptions.WinException;
 
@@ -9,21 +9,22 @@ public class Jeu {
 	
 	private Plateau plateau;
 	private int taille;
-	private ArrayList<Integer> idTuiles;
 	private int nbTuileX;
 	private int nbTuileY;
 	private int nbMelange;
+	private int nbCoups;
+	private Ai ai;
+	private Joueur joueur;
+	//private Stack listeComplete;
 	
 	public Jeu(){
 		this.plateau = null;
 		this.taille = 4;
 		this.nbTuileX = this.taille;
 		this.nbTuileY = this.taille;
-		this.nbMelange = 100;
-		this.idTuiles = new ArrayList<Integer>();
-		for(int i = 1;i <= this.nbTuileX*this.nbTuileY;i++){
-			this.idTuiles.add(this.idTuiles.size(), i);
-		}
+		this.nbMelange = 10;
+		this.ai = new Ai();
+		this.joueur = new Joueur();
 	}
 	
 	public void initialisation(){
@@ -31,7 +32,7 @@ public class Jeu {
 		int id = 1;
 		for (int i=0; i < nbTuileX; i++){
 			for (int j=0; j < nbTuileY; j++){
-				tuiles[j][i]= new Tuile(id);
+				tuiles[j][i]= new Tuile(id,i,j);
 				id++;
 			}
 		}
@@ -41,29 +42,33 @@ public class Jeu {
 	}
 	
 	public void melanger(){
+		//this.listeComplete = new Stack();
 		for(int i = 0;i < this.nbMelange;i++){
 			int alea = (int)(Math.random()*4);
 			switch (alea){
 				case 0:
 					this.commande("z");
+					//this.listeComplete.push("z");
 					break;
 				case 1:
 					this.commande("s");
+					//this.listeComplete.push("s");
 					break;
 				case 2:
 					this.commande("q");
+					//this.listeComplete.push("q");
 					break;
 				case 3:
 					this.commande("d");
+					//this.listeComplete.push("d");
 					break;
 			}
+			this.affiche();
 		}
 	}
 	
 	public void pas() throws WinException{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Quel déplacement souhaitez-vous ?");
-		String com = sc.nextLine();
+		String com = this.joueur.pas();
 		this.commande(com);
 		this.affiche();
 		this.end();
@@ -115,12 +120,39 @@ public class Jeu {
 		case "ai":
 			break;
 		case "aiFull":
+			this.aideComplete();
 			break;
 		case "cheat":
 			break;
 		default:
 			break;
 		}
+	}
+	
+	public void aide(int nb){
+		this.ai.aide(this, nb);
+	}
+	
+	public void aideComplete(){
+		/*while(!this.listeComplete.empty()){
+			System.out.println(this.listeComplete);
+			String com = (String) this.listeComplete.pop();
+			switch(com){
+			case "z":
+				this.commande("s");
+				break;
+			case "s":
+				this.commande("z");
+				break;
+			case "q":
+				this.commande("d");
+				break;
+			case "d":
+				this.commande("q");
+				break;
+			}
+			this.affiche();
+		}*/
 	}
 	
 	public Plateau getPlateau(){

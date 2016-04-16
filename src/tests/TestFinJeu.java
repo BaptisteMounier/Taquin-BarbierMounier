@@ -25,7 +25,7 @@ public class TestFinJeu {
 		int ind = 1;
 		for (int i=0; i < nb_tuile_x; i++){
 			for (int j=0; j < nb_tuile_y; j++){
-				tuiles[j][i]= new Tuile(ind);
+				tuiles[j][i]= new Tuile(ind,i,j);
 				ind++;
 			}
 		}

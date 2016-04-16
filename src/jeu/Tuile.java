@@ -5,9 +5,13 @@ public class Tuile {
 	private int indice;
 	private int largeur; //largeur tuile
 	private int hauteur;// hauteur tuile
+	private int xObjectif;
+	private int yObjectif;
 	
-	public Tuile(int i){
+	public Tuile(int i, int x, int y){
 		this.indice = i;
+		this.xObjectif = x;
+		this.yObjectif = y;
 	}
 	
 	public String toString(){
@@ -35,6 +39,14 @@ public class Tuile {
 	
 	public int getIndice(){
 		return this.indice;
+	}
+
+	public int getXObjectif() {
+		return this.xObjectif;
+	}
+
+	public int getYObjectif() {
+		return this.yObjectif;
 	}
 
 }

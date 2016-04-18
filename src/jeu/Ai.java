@@ -24,9 +24,26 @@ public class Ai extends Joueur{
 	}
 
 	public void aide(Jeu jeu, int nb) {
-		for(int iteration = 0;iteration < nb;iteration++){
-			int base = jeu.getPlateau().manhattan();
+		if(nb == 0){
 			
+		}else{
+			for(int iteration = 0;iteration < nb;iteration++){
+				int base = jeu.getPlateau().manhattan();
+				String commande = "stop";
+				boolean end = false;
+				String[] commandeListe = {"z","s","q","d","stop"};
+				int i = 0;
+				while(!end){
+					Jeu j = new Jeu(jeu);
+					j.commande(commandeListe[i]);
+					if(base > j.getPlateau().manhattan() || commandeListe[i].equals("stop")){
+						commande = commandeListe[i];
+						end = true;
+					}else
+						i++;
+				}
+				jeu.commande(commande);
+			}
 		}
 	}
 

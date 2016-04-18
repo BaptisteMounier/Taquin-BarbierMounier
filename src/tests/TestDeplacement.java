@@ -10,15 +10,13 @@ import jeu.*;
 public class TestDeplacement {
 
 	Jeu jeu;
-	int nb_tuile_x;
-	int nb_tuile_y;
+	int nb_tuile;
 
 	@Before
 	public void initialisation(){
 		this.jeu = new Jeu();
-		this.nb_tuile_x = jeu.getTailleX();
-		this.nb_tuile_y = jeu.getTailleY();
-		Tuile[][] tuiles = new Tuile[nb_tuile_x][nb_tuile_y];
+		this.nb_tuile = jeu.getTaille();
+		Tuile[][] tuiles = new Tuile[nb_tuile][nb_tuile];
 		tuiles[0][0]= new Tuile(1,0,0);
 		tuiles[1][0]= new Tuile(2,1,0);
 		tuiles[2][0]= new Tuile(3,2,0);

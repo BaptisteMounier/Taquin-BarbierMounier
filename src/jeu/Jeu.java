@@ -13,7 +13,6 @@ public class Jeu {
 	private int nbCoups;
 	private Ai ai;
 	private Joueur joueur;
-	//private Stack listeComplete;
 	
 	public Jeu(){
 		this.plateau = null;

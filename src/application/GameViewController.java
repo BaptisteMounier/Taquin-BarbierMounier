@@ -18,76 +18,19 @@ public class GameViewController implements Initializable {
 
 		
 		@FXML
-	    private Label score; // value will be injected by the FXMLLoader
+	    private Label score;
 	    @FXML
 	    private GridPane grille;
 	    @FXML
-	    private Pane fond; // panneau recouvrant toute la fenêtre
-
-	    // variables globales non définies dans la vue (fichier .fxml)
-	    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-	    private final Label c = new Label("2");
-	    private int x = 24, y = 191;
-	    private int objectifx = 24, objectify = 191;
-
+	    private Pane fond;
+	    private final Pane p = new Pane();
+	    
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
-	        // TODO
-	        System.out.println("le contrôleur initialise la vue");
-	        // utilisation de styles pour la grille et la tuile (voir styles.css)
-	        p.getStyleClass().add("pane"); 
-	        c.getStyleClass().add("tuile");
+	        p.getStyleClass().add("pane");
 	        grille.getStyleClass().add("gridpane");
-	        GridPane.setHalignment(c, HPos.CENTER);
 	        fond.getChildren().add(p);
-	        p.getChildren().add(c);
 
-	        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-	        p.setLayoutX(x);
-	        p.setLayoutY(y);
-	        p.setVisible(true);
-	        c.setVisible(true);
-	    }
-
-	    /*
-	     * Méthodes listeners pour gérer les événements (portent les mêmes noms que
-	     * dans Scene Builder
-	     */
-	    @FXML
-	    private void handleDragAction(MouseEvent event) {
-	        System.out.println("Glisser/déposer sur la grille avec la souris");
-	        double x = event.getX();//translation en abscisse
-	        double y = event.getY();//translation en ordonnée
-	        if (x > y) {
-	            for (int i = 0; i < grille.getChildren().size(); i++) { //pour chaque colonne
-	                //for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
-	                System.out.println("ok1");
-	                grille.getChildren().remove(i);
-
-	                /*Node tuile = grille.getChildren().get(i);
-	                 if (tuile != null) {
-	                 int rowIndex = GridPane.getRowIndex(tuile);
-	                 int rowEnd = GridPane.getRowIndex(tuile);
-	                 }*/
-	                // }
-	            }
-	        } else if (x < y) {
-	            System.out.println("ok2");
-	            for (int i = 0; i < 4; i++) {
-	                for (int j = 0; j < 4; j++) {
-	                    Pane p = new Pane();
-	                    p.getStyleClass().add("pane");
-	                    grille.add(p, i, j);
-	                    p.setVisible(true);
-	                    grille.getStyleClass().add("gridpane");
-	                }
-	            }
-	        }
-	    }
-
-	    @FXML
-	    private void handleButtonAction(MouseEvent event) {
-	        System.out.println("Clic de souris sur le bouton menu");
 	    }
 
 	    @FXML
@@ -115,7 +58,7 @@ public class GameViewController implements Initializable {
 	                    } else {
 	                        x -= 1; // si on va vers la gauche, idem en décrémentant la valeur de x
 	                    }
-	                    // Platform.runLater est nécessaire en JavaFX car la GUI ne peut être modifiée que par le Thread courant, contrairement à Swing où on peut utiliser un autre Thread pour ça
+	                    
 	                    Platform.runLater(new Runnable() { // classe anonyme
 	                        @Override
 	                        public void run() {

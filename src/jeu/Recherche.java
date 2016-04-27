@@ -19,22 +19,21 @@ public class Recherche {
 	
 	public ArrayList<String> recherche(){
 		boolean trouvee = false;
-		while(!this.ouvert.isEmpty() || trouvee){
+		while(!this.ouvert.isEmpty() && !trouvee){
 			Etat actuel = this.ouvertChoix();
+			this.ouvert.remove(actuel);
+			this.fermee.add(actuel);
 			trouvee = actuel.resolu();
-			for(Etat successeur : actuel.successeur()){
-				if(!this.ouvert.contains(successeur) || !this.fermee.contains(successeur)){
+			if(!trouvee){
+				ArrayList<Etat> listeSuccesseur = actuel.successeur();
+				for(Etat successeur : listeSuccesseur){
 					this.ouvert.add(successeur);
-					
-				}else if(true){
-					if(this.fermee.contains(successeur)){
-						this.ouvert.add(successeur);
-						this.fermee.remove(successeur);
-					}
 				}
+			}else{
+				this.listeCommande = actuel.getListCommande();
 			}
 		}
-		return listeCommande;	
+		return this.listeCommande;	
 	}
 	
 	public Etat ouvertChoix(){

@@ -9,12 +9,12 @@ public class Etat {
 	private int manhattan;
 	private int malPlacee;
 	private int mini;
-	private Etat antecedent;
+	private ArrayList<String> listCommande;
 	
-	public Etat(Plateau p, int c, Etat a){
+	public Etat(Plateau p, int c, ArrayList<String> lC){
 		this.plateau = p;
 		this.cout = c;
-		this.antecedent = a;
+		this.listCommande = lC;
 		this.manhattan = this.plateau.manhattan();
 		this.malPlacee = this.plateau.malPlacee();
 		this.mini = this.cout + this.manhattan + this.malPlacee;
@@ -27,22 +27,46 @@ public class Etat {
 	public ArrayList<Etat> successeur(){
 		ArrayList<Etat> successeur = new ArrayList<Etat>();
 		Plateau successeurUp = new Plateau(this.plateau);
-		if(successeurUp.moveUp())
-			successeur.add(new Etat(successeurUp, this.cout+1, this));
+		if(successeurUp.moveUp()){
+			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
+			listeCommandeSuccesseur = this.listCommande;
+			listeCommandeSuccesseur.add("z");
+			successeur.add(new Etat(successeurUp, this.cout+1, listeCommandeSuccesseur));
+		}
 		Plateau successeurDown = new Plateau(this.plateau);
-		if(successeurDown.moveDown())
-			successeur.add(new Etat(successeurDown, this.cout+1, this));
+		if(successeurDown.moveDown()){
+			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
+			listeCommandeSuccesseur = this.listCommande;
+			listeCommandeSuccesseur.add("s");
+			successeur.add(new Etat(successeurDown, this.cout+1, listeCommandeSuccesseur));
+		}
 		Plateau successeurLeft = new Plateau(this.plateau);
-		if(successeurLeft.moveLeft())
-			successeur.add(new Etat(successeurLeft, this.cout+1, this));
+		if(successeurLeft.moveLeft()){
+			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
+			listeCommandeSuccesseur = this.listCommande;
+			listeCommandeSuccesseur.add("q");
+			successeur.add(new Etat(successeurLeft, this.cout+1, listeCommandeSuccesseur));
+		}
 		Plateau successeurRight = new Plateau(this.plateau);
-		if(successeurRight.moveRight())
-			successeur.add(new Etat(successeurRight, this.cout+1, this));
+		if(successeurRight.moveRight()){
+			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
+			listeCommandeSuccesseur = this.listCommande;
+			listeCommandeSuccesseur.add("d");
+			successeur.add(new Etat(successeurRight, this.cout+1, listeCommandeSuccesseur));
+		}
 		return successeur;
 	}
 
 	public boolean resolu() {
 		return this.plateau.resolu();
+	}
+	
+	public boolean coutPlusFaible(int n){
+		return false;
+	}
+	
+	public ArrayList<String> getListCommande(){
+		return this.listCommande;
 	}
 
 }

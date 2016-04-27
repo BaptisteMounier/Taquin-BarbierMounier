@@ -13,6 +13,8 @@ public class Tuile {
 	}
 	
 	public String toString(){
+		if(this.indice == 0)
+			return "  ";
 		if(this.indice >= 10)
 			return Integer.toString(this.indice);
 		else

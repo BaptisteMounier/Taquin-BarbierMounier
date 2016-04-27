@@ -8,7 +8,8 @@ public class Joueur {
 	private int score;
 	private int top;
 	
-	public Joueur(){
+	public Joueur(String n){
+		this.nom = n;
 		this.score = 0;
 	}
 	
@@ -16,8 +17,18 @@ public class Joueur {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Quel déplacement souhaitez-vous ?");
 		String com = sc.nextLine();
-		this.score++;
 		return com;
+	}
+
+	public void initialisation() {
+	}
+	
+	public String getNom(){
+		return this.nom;
+	}
+	
+	public int getScore(){
+		return this.score;
 	}
 
 }

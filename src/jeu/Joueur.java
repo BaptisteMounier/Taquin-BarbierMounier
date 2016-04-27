@@ -14,7 +14,7 @@ public class Joueur {
 	
 	public String pas() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Quel déplacement souhaitez-vous ?");
+		System.out.println("Quel dÃ©placement souhaitez-vous ?");
 		String com = sc.nextLine();
 		this.score++;
 		return com;

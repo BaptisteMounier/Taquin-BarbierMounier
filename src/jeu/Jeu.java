@@ -17,7 +17,7 @@ public class Jeu {
 	public Jeu(){
 		this.plateau = null;
 		this.taille = 4;
-		this.nbMelange = 10;
+		this.nbMelange = 100;
 		this.ai = new Ai();
 		this.joueur = new Joueur();
 	}
@@ -38,7 +38,7 @@ public class Jeu {
 		this.plateau = new Plateau(tuiles);
 	}
 
-	public void initialisation(){
+	public void initialisation() throws NumberFormatException, WinException{
 		Tuile[][] tuiles = new Tuile[this.taille][this.taille];
 		int id = 1;
 		for (int j=0; j < this.taille; j++){
@@ -53,7 +53,7 @@ public class Jeu {
 		this.affiche();
 	}
 	
-	public void melanger(){
+	public void melanger() throws NumberFormatException, WinException{
 		for(int i = 0;i < this.nbMelange;i++){
 			int alea = (int)(Math.random()*4);
 			switch (alea){
@@ -80,7 +80,7 @@ public class Jeu {
 		this.end();
 	}
 	
-	public void commande(String string){
+	public void commande(String string) throws NumberFormatException, WinException{
 		boolean find = false;
 		String[] commande = string.split(" ");
 		switch(commande[0]){
@@ -138,7 +138,7 @@ public class Jeu {
 		}
 	}
 	
-	public void aide(int nb){
+	public void aide(int nb) throws WinException{
 		this.ai.aide(this, nb);
 	}
 	

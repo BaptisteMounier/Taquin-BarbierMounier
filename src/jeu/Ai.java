@@ -9,6 +9,10 @@ public class Ai extends Joueur{
 	public Ai(){
 		super("IA");
 	}
+	
+	public Ai(String nom, int score, int top){
+		super(nom,score,top);
+	}
 
 	public ArrayList<String> aide(Plateau plateau){
 		Etat depart = new Etat(plateau,0 ,new ArrayList<String>());

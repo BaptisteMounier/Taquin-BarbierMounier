@@ -14,6 +14,7 @@ public class Jeu {
 	private int nbCoups;
 	private Ai ai;
 	private Joueur joueur;
+	private Sauvegarde save;
 	
 	public Jeu(){
 		this.plateau = null;
@@ -32,6 +33,16 @@ public class Jeu {
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
 		this.plateau = new Plateau(jeu.plateau);
+		this.save = new Sauvegarde(this);
+	}
+	
+	public Jeu(Plateau plateau, int taille, int nbMelange, int nbCoups, Ai ai, Joueur joueur){
+		this.plateau = plateau;
+		this.taille = taille;
+		this.nbMelange = nbMelange;
+		this.nbCoups = nbCoups;
+		this.ai = ai;
+		this.joueur = joueur;
 	}
 
 	public void initialisation(){
@@ -40,7 +51,19 @@ public class Jeu {
 		this.nbCoups = 0;
 		this.joueur.initialisation();
 		this.ai.initialisation();
+		this.save = new Sauvegarde(this);
 		this.affiche();
+	}
+	
+	public void charger(Jeu jeu){
+		this.plateau = null;
+		this.taille = jeu.getTaille();
+		this.nbMelange = jeu.getNbMelange();
+		this.nbCoups = jeu.getNbCoup();
+		this.ai = jeu.getAi();
+		this.joueur = jeu.getJoueur();
+		this.plateau = new Plateau(jeu.plateau);
+		this.save = new Sauvegarde(this);
 	}
 	
 	public void pas() throws WinException{
@@ -83,6 +106,12 @@ public class Jeu {
 				}
 			}
 			break;
+		case "save":
+			this.save.sauvegarder(commande[1]);
+			break;
+		case "load":
+			this.charger(this.save.charger(commande[1]));
+			break;
 		}
 	}
 	
@@ -91,24 +120,32 @@ public class Jeu {
 			throw new WinException();
 	}
 
-	private Joueur getJoueur() {
+	public Joueur getJoueur() {
 		return this.joueur;
 	}
 
-	private Ai getAi() {
+	public Ai getAi() {
 		return this.ai;
 	}
 
-	private int getNbCoup() {
+	public int getNbCoup() {
 		return this.nbCoups;
 	}
 
-	private int getNbMelange() {
+	public int getNbMelange() {
 		return this.nbMelange;
 	}
 
-	private int getTaille() {
+	public int getTaille() {
 		return this.taille;
+	}
+
+	public Plateau getPlateau() {
+		return this.plateau;
+	}
+
+	public int getNbCoups() {
+		return this.nbCoups;
 	}
 	
 	public void affiche(){

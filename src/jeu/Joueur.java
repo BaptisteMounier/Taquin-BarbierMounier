@@ -13,8 +13,15 @@ public class Joueur {
 		this.score = 0;
 	}
 	
+	public Joueur(String nom, int score, int top){
+		this.nom = nom;
+		this.score = score;
+		this.top = top;
+	}
+	
 	public String pas() {
 		Scanner sc = new Scanner(System.in);
+		System.out.println("==========");
 		System.out.println("Quel déplacement souhaitez-vous ?");
 		String com = sc.nextLine();
 		return com;
@@ -29,6 +36,10 @@ public class Joueur {
 	
 	public int getScore(){
 		return this.score;
+	}
+	
+	public int getTop(){
+		return this.top;
 	}
 
 }

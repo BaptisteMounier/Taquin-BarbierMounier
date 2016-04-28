@@ -18,7 +18,7 @@ public class Jeu {
 	
 	public Jeu(){
 		this.plateau = null;
-		this.taille = 3; // temporaire
+		this.taille = 4;
 		this.nbMelange = 10;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
@@ -146,6 +146,10 @@ public class Jeu {
 
 	public int getNbCoups() {
 		return this.nbCoups;
+	}
+	
+	public void setPlateau(Plateau plateau){
+		this.plateau = new Plateau(plateau);
 	}
 	
 	public void affiche(){

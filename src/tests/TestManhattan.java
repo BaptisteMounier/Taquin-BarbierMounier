@@ -16,9 +16,9 @@ public class TestManhattan {
 		tuiles[0][1]= new Tuile(2,0,1);
 		tuiles[1][1]= new Tuile(3,1,0);
 		tuiles[1][0]= new Tuile(4,1,1);
-		Plateau plateau = new Plateau(tuiles);
+		Plateau plateau = new Plateau(tuiles, 2, 0, 4);
 		int manhattan = plateau.manhattan();
-		assertTrue("La distance Manhattan devrait être 2 et non "+manhattan,manhattan == 2);
+		assertTrue("La distance Manhattan devrait Ãªtre 2 et non "+manhattan,manhattan == 2);
 	}
 
 	@Test
@@ -40,9 +40,9 @@ public class TestManhattan {
 		tuiles[1][3]= new Tuile(14,1,3);
 		tuiles[2][3]= new Tuile(15,2,3);
 		tuiles[3][3]= new Tuile(12,3,2);
-		Plateau plateau = new Plateau(tuiles);
+		Plateau plateau = new Plateau(tuiles, 4, 0, 16);
 		int manhattan = plateau.manhattan();
-		assertTrue("La distance Manhattan devrait être 4 et non "+manhattan,manhattan == 4);
+		assertTrue("La distance Manhattan devrait Ãªtre 4 et non "+manhattan,manhattan == 4);
 	}
 
 }

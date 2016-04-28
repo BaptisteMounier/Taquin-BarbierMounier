@@ -1,5 +1,6 @@
 package jeu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -16,61 +17,30 @@ public class Jeu {
 	
 	public Jeu(){
 		this.plateau = null;
-		this.taille = 4;
+		this.taille = 3; // temporaire
 		this.nbMelange = 10;
+		this.nbCoups = 0;
+		this.joueur = new Joueur("Joueur 1");
 		this.ai = new Ai();
-		this.joueur = new Joueur();
 	}
 	
 	public Jeu(Jeu jeu){
 		this.plateau = null;
-		this.taille = 4;
+		this.taille = jeu.getTaille();
 		this.nbMelange = jeu.getNbMelange();
+		this.nbCoups = jeu.getNbCoup();
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
-		Tuile[][] tuiles = new Tuile[this.taille][this.taille];
-		for (int j=0; j < this.taille; j++){
-			for (int i=0; i < this.taille; i++){
-				int id = jeu.getPlateau().GetTuiles()[i][j].getIndice();
-				tuiles[i][j] = new Tuile(id,jeu.getPlateau().GetTuiles()[i][j].getXObjectif(),jeu.getPlateau().GetTuiles()[i][j].getYObjectif());
-			}
-		}
-		this.plateau = new Plateau(tuiles);
+		this.plateau = new Plateau(jeu.plateau);
 	}
 
 	public void initialisation(){
-		Tuile[][] tuiles = new Tuile[this.taille][this.taille];
-		int id = 1;
-		for (int j=0; j < this.taille; j++){
-			for (int i=0; i < this.taille; i++){
-				tuiles[i][j]= new Tuile(id,i,j);
-				id++;
-				//System.out.println(tuiles[i][j].getIndice()+" "+tuiles[i][j].getXObjectif()+" "+tuiles[i][j].getYObjectif());
-			}
-		}
-		this.plateau = new Plateau(tuiles);
-		this.melanger();
+		this.plateau = new Plateau(this.taille, this.nbMelange);
+		this.plateau.initialisation();
+		this.nbCoups = 0;
+		this.joueur.initialisation();
+		this.ai.initialisation();
 		this.affiche();
-	}
-	
-	public void melanger(){
-		for(int i = 0;i < this.nbMelange;i++){
-			int alea = (int)(Math.random()*4);
-			switch (alea){
-				case 0:
-					this.commande("z");
-					break;
-				case 1:
-					this.commande("s");
-					break;
-				case 2:
-					this.commande("q");
-					break;
-				case 3:
-					this.commande("d");
-					break;
-			}
-		}
 	}
 	
 	public void pas() throws WinException{
@@ -81,146 +51,72 @@ public class Jeu {
 	}
 	
 	public void commande(String string){
-		boolean find = false;
 		String[] commande = string.split(" ");
 		switch(commande[0]){
 		case "z":
-			for(int j = 0;j < this.taille-1 && !find;j++){
-				for(int i = 0;i < this.taille && !find;i++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.taille*this.taille){
-						this.plateau.switchTuiles(i, j, i, j+1);
-						find = true;
-					}
-				}
-			}
+			if(this.plateau.moveUp())
+				this.nbCoups++;
 			break;
 		case "s":
-			for(int i = 0;i < this.taille && !find;i++){
-				for(int j = 1;j < this.taille && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.taille*this.taille){
-						this.plateau.switchTuiles(i, j, i, j-1);
-						find = true;
-					}
-				}
-			}
+			if(this.plateau.moveDown())
+				this.nbCoups++;
 			break;
 		case "q":
-			for(int i = 0;i < this.taille-1 && !find;i++){
-				for(int j = 0;j < this.taille && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.taille*this.taille){
-						this.plateau.switchTuiles(i, j, i+1, j);
-						find = true;
-					}
-				}
-			}
+			if(this.plateau.moveLeft())
+				this.nbCoups++;
 			break;
 		case "d":
-			for(int i = 1;i < this.taille && !find;i++){
-				for(int j = 0;j < this.taille && !find;j++){
-					if(this.plateau.GetTuiles()[i][j].getIndice() == this.taille*this.taille){
-						this.plateau.switchTuiles(i, j, i-1, j);
-						find = true;
-					}
+			if(this.plateau.moveRight())
+				this.nbCoups++;
+			break;
+		case "ai":
+			ArrayList<String> listeCommande = new ArrayList<String>();
+			listeCommande = this.ai.aide(this.plateau);
+			int nbCoups = Integer.parseInt(commande[1]);
+			if(nbCoups == 0){
+				for(String cmd : listeCommande){
+					this.commande(cmd);
+				}
+			}else{
+				for(int i = 0;i < nbCoups;i++){
+					this.commande(listeCommande.get(i));
 				}
 			}
 			break;
-		case "ai":
-			this.aide(Integer.parseInt(commande[1]));
-			break;
-		case "stop":
-			System.out.println("STOP");
-			break;
-		case "cheat":
-			System.out.println("CHEAT");
-			break;
-		default:
-			break;
 		}
 	}
 	
-	public void aide(int nb){
-		this.ai.aide(this, nb);
-	}
-	
-	public Plateau getPlateau(){
-		return this.plateau;
-	}
-	
-	public Tuile[][] getTuiles(){
-		return this.plateau.GetTuiles();
+	public void end() throws WinException{
+		if(this.plateau.resolu())
+			throw new WinException();
 	}
 
-	public void setPlateau(Plateau plateau) {
-		this.plateau = plateau;
+	public Joueur getJoueur() {
+		return this.joueur;
 	}
-	
-	public boolean end(){
-		boolean gagne = true;
-		int cpt = 1;
-		Tuile[][] tuiles = this.getTuiles();
-		for(int j = 0;j < tuiles.length;j++){
-			for(int i = 0;i < tuiles[j].length;i++){
-				if(tuiles[i][j].getIndice()!=cpt)
-					gagne = false;
-				cpt++;
-			}
-		}
-		if(gagne){
-			return true;
-		}else{
-			return false;
-		}
+
+	private Ai getAi() {
+		return this.ai;
 	}
-	
-	public void affiche(){
-		Tuile[][] tuiles = this.getTuiles();
-		for(int j = 0;j < tuiles.length;j++){
-			for(int i = 0;i < tuiles[j].length;i++){
-				System.out.print(tuiles[i][j]+" ");
-			}
-			System.out.print("\n");
-		}
-		System.out.print("==========\n");
+
+	private int getNbCoup() {
+		return this.nbCoups;
+	}
+
+	private int getNbMelange() {
+		return this.nbMelange;
 	}
 
 	public int getTaille() {
 		return this.taille;
 	}
-
-	public int getNbMelange() {
-		return nbMelange;
-	}
-
-	public void setNbMelange(int nbMelange) {
-		this.nbMelange = nbMelange;
-	}
-
-	public int getNbCoups() {
-		return nbCoups;
-	}
-
-	public void setNbCoups(int nbCoups) {
-		this.nbCoups = nbCoups;
-	}
-
-	public Ai getAi() {
-		return ai;
-	}
-
-	public void setAi(Ai ai) {
-		this.ai = ai;
-	}
-
-	public Joueur getJoueur() {
-		return joueur;
-	}
-
-	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
-	}
-
-	public void setTaille(int taille) {
-		this.taille = taille;
+	
+	public void affiche(){
+		System.out.println("==========");
+		System.out.println("Nombre de coup : "+this.nbCoups);
+		System.out.println("Joueur : "+this.joueur.getNom());
+		System.out.println("Score : "+this.joueur.getScore());
+		System.out.println(this.plateau.affiche());
 	}
 
 }

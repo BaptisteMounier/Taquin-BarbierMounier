@@ -8,24 +8,27 @@ public class Joueur {
 	private int score;
 	private int top;
 	
-	public Joueur(){
-		this.setScore(0);
+	public Joueur(String n){
+		this.nom = n;
+		this.score = 0;
 	}
 	
 	public String pas() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Quel déplacement souhaitez-vous ?");
+		System.out.println("Quel dÃ©placement souhaitez-vous ?");
 		String com = sc.nextLine();
-		this.setScore(this.getScore() + 1);
 		return com;
 	}
 
-	public int getScore() {
-		return score;
+	public void initialisation() {
 	}
-
-	public void setScore(int score) {
-		this.score = score;
+	
+	public String getNom(){
+		return this.nom;
+	}
+	
+	public int getScore(){
+		return this.score;
 	}
 
 }

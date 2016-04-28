@@ -23,9 +23,7 @@ public class GameViewController implements Initializable {
 		@FXML
 	    private String score;
 	    @FXML
-	    private GridPane grille;
-	    @FXML
-	    private Pane pane;
+	    private GridPane gridPane;
 	    @FXML
 	    private Pane fond;
 	    
@@ -35,23 +33,58 @@ public class GameViewController implements Initializable {
 	    private int selection; 
 	    private boolean select;
 	    private Label[] labels;
+	    private double tailleCase = 100;
+
 	    
 	    
 	    
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        this.jeu = new Jeu();
+	        this.tailleCase=397/4;
+	        creaLabels();
 	        creaTuile();
-	        
-	        
-	        
-	    	
+	        creaVue();
 	    }
+	    public void nouvellePartie(){    	
+	    	this.tailleCase=397/4;
+	    	this.creaLabels();
+	    	this.creaTuile();
+	    	this.creaVue();
+	    }
+	    
+	    public Jeu getJeu(){
+	    	return this.jeu;
+	    }
+	    
+	    public void setJeu(Jeu jeu){
+	    	this.jeu=jeu;
+	    }
+	    
+	    public void creaLabels(){ 
+	    	int taille = this.jeu.getTaille();
+	    	labels = new Label[taille*taille];
+	    	int chiffreCase;
+	    	for(int i=0;i<taille;i++){
+	            for(int j=0;j<taille;j++){
+	            	chiffreCase = i+ j;
+	            	if (chiffreCase==0){
+	            		this.labels[i*taille+j]=new Label(" ");
+	            	}
+	            	else {
+	            		this.labels[i*taille+j]=new Label(""+chiffreCase);
+	            	}
+	            }
+	    	}
+	    }
+	    
+	    
 	    public void creaTuile(){
-	    	int taille = jeu.getTaille();
+	    	int taille = this.jeu.getTaille();
 	    	tuile = new Pane[taille*taille];
 	    	for(int i =0;i<taille*taille;i++){
 	    		this.tuile[i]=new Pane();
+	    		//this.tuiles[i].setPrefSize(tailleCase,tailleCase);
 	    		this.tuile[i].setOnMouseClicked(new EventHandler<MouseEvent>()
 	            {
 	                @Override
@@ -76,12 +109,39 @@ public class GameViewController implements Initializable {
 	    	for(int i=0;i<tuile.length;i++){
 	            tuile[i].getStyleClass().add("tuile"); 
 	            labels[i].getStyleClass().add("tuile");
-	            grille.getStyleClass().add("gridpane");
+	            //gridPane.getStyleClass().add("gridpane");
 	            fond.getChildren().add(tuile[i]);
 	            tuile[i].getChildren().add(labels[i]);
-	    	} 
-	    	this.jeu.melanger();
+	    	}
+	    	for(int l=0;l<jeu.getTaille();l++){
+	            for(int c=0;c<jeu.getTaille();c++){
+	            	int numCase = l*jeu.getTaille()+c;
+	            	tuile[numCase].setLayoutX(150+tailleCase*c);
+	            	tuile[numCase].setLayoutY(10+tailleCase*l);
+	            	tuile[numCase].setVisible(true);
+	                labels[numCase].setVisible(true);
+
+	            }
+	    	}
 	    }
+	    
+	    public void updateVuePlateau(){
+	    	int taille = this.jeu.getTaille();
+	    	int chiffreCase;
+	    	for(int i=0;i<taille;i++){
+	            for(int j=0;j<taille;j++){
+	            	chiffreCase = i+j;
+	            	if (chiffreCase==0){
+	            		this.labels[i*taille+j].setText(" "); // si c'est la case 0 ou dite vide, laisse un texte vide
+	            	}
+	            	else {
+	            		this.labels[i*taille+j].setText(""+chiffreCase); // sinon le label est le contenu de la case
+	            	}
+	            }
+	    	}
+	        //score.setText(Integer.toString(this.jeu.getJoueur().getScore()));
+	    }
+	    
 	    @FXML
 	    public void newGame(){
 	    	this.jeu= new Jeu();
@@ -91,6 +151,7 @@ public class GameViewController implements Initializable {
 	    public void keyPressed(KeyEvent ke) {
 	       String touche = ke.getText();
 	       jeu.commande(touche);
+           updateVuePlateau();
 	    //Thread th = new Thread();
 	    //th.setDaemon(true);
 	    //th.start();

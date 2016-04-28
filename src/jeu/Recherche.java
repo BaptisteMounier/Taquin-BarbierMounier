@@ -4,30 +4,48 @@ import java.util.ArrayList;
 
 public class Recherche {
 	
-	private Etat etat;
 	private ArrayList<Etat> ouvert;
 	private ArrayList<Etat> fermee;
 	private ArrayList<String> listeCommande;
 	
 	public Recherche(Etat e){
-		this.etat = e;
 		this.ouvert = new ArrayList<Etat>();
-		this.ouvert.add(this.etat);
+		this.ouvert.add(e);
 		this.fermee = new ArrayList<Etat>();
 		this.listeCommande = new ArrayList<String>();
 	}
 	
 	public ArrayList<String> recherche(){
 		boolean trouvee = false;
+		int cpt = 0;
 		while(!this.ouvert.isEmpty() && !trouvee){
+			// temporaire
+			System.out.println("compteur : "+cpt);
+			cpt++;
+			// temporaire
 			Etat actuel = this.ouvertChoix();
-			this.ouvert.remove(actuel);
-			this.fermee.add(actuel);
+			this.listeCommande = actuel.getListCommande();
 			trouvee = actuel.resolu();
 			if(!trouvee){
 				ArrayList<Etat> listeSuccesseur = actuel.successeur();
 				for(Etat successeur : listeSuccesseur){
-					this.ouvert.add(successeur);
+					if(!this.ouvert.contains(successeur)){
+						if(!this.fermee.contains(successeur)){
+							this.ouvert.add(successeur);
+						}else{
+							Etat old = this.fermee.get(this.fermee.indexOf(successeur));
+							if(successeur.getCout() < old.getCout()){
+								this.fermee.remove(old);
+								this.ouvert.add(successeur);
+							}
+						}
+					}else{
+						Etat old = this.ouvert.get(this.ouvert.indexOf(successeur));
+						if(successeur.getCout() < old.getCout()){
+							this.ouvert.remove(old);
+							this.ouvert.add(successeur);
+						}
+					}
 				}
 			}else{
 				this.listeCommande = actuel.getListCommande();
@@ -39,7 +57,7 @@ public class Recherche {
 	public Etat ouvertChoix(){
 		Etat mini = this.ouvert.get(0);
 		for(Etat e : this.ouvert){
-			if(e.getMini() < mini.getMini())
+			if(e.getCout() < mini.getCout())
 				mini = e;
 		}
 		this.ouvert.remove(mini);

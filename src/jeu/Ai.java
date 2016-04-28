@@ -10,7 +10,7 @@ public class Ai extends Joueur{
 		super("IA");
 	}
 
-	public ArrayList<String> aide(Plateau plateau, int nb) throws WinException {
+	public ArrayList<String> aide(Plateau plateau){
 		Etat depart = new Etat(plateau,0 ,new ArrayList<String>());
 		Recherche recherche = new Recherche(depart);
 		return recherche.recherche();

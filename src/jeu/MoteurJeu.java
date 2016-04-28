@@ -20,7 +20,7 @@ public class MoteurJeu {
 			}
 		} catch (WinException e) {
 			System.out.println("Victoire !");
-			// affichage écran de victoire
+			// affichage Ã©cran de victoire
 			this.newGame();
 		}
 	}

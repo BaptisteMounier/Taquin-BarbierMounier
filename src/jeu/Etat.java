@@ -5,23 +5,17 @@ import java.util.ArrayList;
 public class Etat {
 	
 	private Plateau plateau;
+	private int coutParcours;
+	private int coutHeuristiques;
 	private int cout;
-	private int manhattan;
-	private int malPlacee;
-	private int mini;
 	private ArrayList<String> listCommande;
 	
 	public Etat(Plateau p, int c, ArrayList<String> lC){
 		this.plateau = p;
-		this.cout = c;
+		this.coutParcours = c;
 		this.listCommande = lC;
-		this.manhattan = this.plateau.manhattan();
-		this.malPlacee = this.plateau.malPlacee();
-		this.mini = this.cout + this.manhattan + this.malPlacee;
-	}
-	
-	public int getMini(){
-		return this.mini;
+		this.coutHeuristiques = this.plateau.manhattan()+ this.plateau.malPlacee();
+		this.cout = this.coutParcours + this.coutHeuristiques;
 	}
 	
 	public ArrayList<Etat> successeur(){
@@ -29,30 +23,42 @@ public class Etat {
 		Plateau successeurUp = new Plateau(this.plateau);
 		if(successeurUp.moveUp()){
 			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
-			listeCommandeSuccesseur = this.listCommande;
+			for(String s : this.listCommande)
+				listeCommandeSuccesseur.add(s);
 			listeCommandeSuccesseur.add("z");
-			successeur.add(new Etat(successeurUp, this.cout+1, listeCommandeSuccesseur));
+			int coutParcoursNew = this.coutParcours+1;
+			Etat e = new Etat(successeurUp, coutParcoursNew, listeCommandeSuccesseur);
+			successeur.add(e);
 		}
 		Plateau successeurDown = new Plateau(this.plateau);
 		if(successeurDown.moveDown()){
 			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
-			listeCommandeSuccesseur = this.listCommande;
+			for(String s : this.listCommande)
+				listeCommandeSuccesseur.add(s);
 			listeCommandeSuccesseur.add("s");
-			successeur.add(new Etat(successeurDown, this.cout+1, listeCommandeSuccesseur));
+			int coutParcoursNew = this.coutParcours+1;
+			Etat e = new Etat(successeurDown, coutParcoursNew, listeCommandeSuccesseur);
+			successeur.add(e);
 		}
 		Plateau successeurLeft = new Plateau(this.plateau);
 		if(successeurLeft.moveLeft()){
 			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
-			listeCommandeSuccesseur = this.listCommande;
+			for(String s : this.listCommande)
+				listeCommandeSuccesseur.add(s);
 			listeCommandeSuccesseur.add("q");
-			successeur.add(new Etat(successeurLeft, this.cout+1, listeCommandeSuccesseur));
+			int coutParcoursNew = this.coutParcours+1;
+			Etat e = new Etat(successeurLeft, coutParcoursNew, listeCommandeSuccesseur);
+			successeur.add(e);
 		}
 		Plateau successeurRight = new Plateau(this.plateau);
 		if(successeurRight.moveRight()){
 			ArrayList<String> listeCommandeSuccesseur = new ArrayList<String>();
-			listeCommandeSuccesseur = this.listCommande;
+			for(String s : this.listCommande)
+				listeCommandeSuccesseur.add(s);
 			listeCommandeSuccesseur.add("d");
-			successeur.add(new Etat(successeurRight, this.cout+1, listeCommandeSuccesseur));
+			int coutParcoursNew = this.coutParcours+1;
+			Etat e = new Etat(successeurRight, coutParcoursNew, listeCommandeSuccesseur);
+			successeur.add(e);
 		}
 		return successeur;
 	}
@@ -61,12 +67,28 @@ public class Etat {
 		return this.plateau.resolu();
 	}
 	
-	public boolean coutPlusFaible(int n){
-		return false;
-	}
-	
 	public ArrayList<String> getListCommande(){
 		return this.listCommande;
+	}
+	
+	public Plateau getPlateau(){
+		return this.plateau;
+	}
+	
+	public int getCout(){
+		return this.cout;
+	}
+	
+	public int getCoutParcours(){
+		return this.coutParcours;
+	}
+	
+	public int getCoutHeuristiques(){
+		return this.coutHeuristiques;
+	}
+	
+	public boolean equals(Object e){
+		return this.plateau.equals(((Etat)(e)).getPlateau());
 	}
 
 }

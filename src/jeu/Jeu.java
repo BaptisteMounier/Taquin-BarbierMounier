@@ -1,5 +1,6 @@
 package jeu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -16,8 +17,8 @@ public class Jeu {
 	
 	public Jeu(){
 		this.plateau = null;
-		this.taille = 4; // temporaire
-		this.nbMelange = 100;
+		this.taille = 3; // temporaire
+		this.nbMelange = 10;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
 		this.ai = new Ai();
@@ -69,7 +70,18 @@ public class Jeu {
 				this.nbCoups++;
 			break;
 		case "ai":
-			//this.aide(Integer.parseInt(commande[1]));
+			ArrayList<String> listeCommande = new ArrayList<String>();
+			listeCommande = this.ai.aide(this.plateau);
+			int nbCoups = Integer.parseInt(commande[1]);
+			if(nbCoups == 0){
+				for(String cmd : listeCommande){
+					this.commande(cmd);
+				}
+			}else{
+				for(int i = 0;i < nbCoups;i++){
+					this.commande(listeCommande.get(i));
+				}
+			}
 			break;
 		}
 	}

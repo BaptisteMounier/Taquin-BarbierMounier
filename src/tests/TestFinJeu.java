@@ -9,22 +9,20 @@ import jeu.*;
 public class TestFinJeu {
 
 	Jeu jeu;
-	int nb_tuile_x;
-	int nb_tuile_y;
+	int nb_tuile;
 
 	@Before
 	public void initialisation(){
 		this.jeu = new Jeu();
-		this.nb_tuile_x = jeu.getTailleX();
-		this.nb_tuile_y = jeu.getTailleY();
+		this.nb_tuile = jeu.getTaille();
 	}
 
 	@Test(expected = WinException.class)
 	public void test01_finDeJeu_vitoire() throws WinException {
-		Tuile[][] tuiles = new Tuile[nb_tuile_x][nb_tuile_y];
+		Tuile[][] tuiles = new Tuile[nb_tuile][nb_tuile];
 		int ind = 1;
-		for (int i=0; i < nb_tuile_x; i++){
-			for (int j=0; j < nb_tuile_y; j++){
+		for (int i=0; i < nb_tuile; i++){
+			for (int j=0; j < nb_tuile; j++){
 				tuiles[j][i]= new Tuile(ind,i,j);
 				ind++;
 			}

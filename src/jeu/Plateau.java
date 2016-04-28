@@ -24,8 +24,11 @@ public class Plateau {
 
 	public int manhattan() {
 		int manhattan = 0;
-		for(int i = 0;i < this.tuiles.length;i++){
-			for(int j = 0;j < this.tuiles.length;j++){
+		for(int j = 0;j < this.tuiles.length;j++){
+			for(int i = 0;i < this.tuiles.length;i++){
+				int tempoIndice = this.tuiles[i][j].getIndice();
+				int tempoY = this.tuiles[i][j].getYObjectif();
+				int tempoX = this.tuiles[i][j].getXObjectif();
 				manhattan += Math.abs(i-this.tuiles[i][j].getXObjectif()) + Math.abs(j-this.tuiles[i][j].getYObjectif());
 			}
 		}

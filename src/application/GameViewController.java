@@ -15,8 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public class GameViewController implements Initializable {
-
-		
+	
 		@FXML
 	    private Label score;
 	    @FXML
@@ -28,11 +27,16 @@ public class GameViewController implements Initializable {
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        p.getStyleClass().add("pane");
-	        grille.getStyleClass().add("gridpane");
-	        fond.getChildren().add(p);
-
+	        //grille.getStyleClass().add("gridpane");
+	        //fond.getChildren().add(p);
 	    }
 
+	    @FXML
+	    private void start(MouseEvent event) {
+	        System.out.println("Clic de souris sur le bouton start");
+	    }
+	    
+ 		/*
 	    @FXML
 	    public void keyPressed(KeyEvent ke) {
 	        System.out.println("touche appuyée");
@@ -77,5 +81,5 @@ public class GameViewController implements Initializable {
 	        Thread th = new Thread(task); // on crée un contrôleur de Thread
 	        th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
 	        th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
-	    }
+	    }*/
 	}

@@ -17,12 +17,7 @@ public class Recherche {
 	
 	public ArrayList<String> recherche(){
 		boolean trouvee = false;
-		int cpt = 0;
 		while(!this.ouvert.isEmpty() && !trouvee){
-			// temporaire
-			System.out.println("compteur : "+cpt);
-			cpt++;
-			// temporaire
 			Etat actuel = this.ouvertChoix();
 			this.listeCommande = actuel.getListCommande();
 			trouvee = actuel.resolu();

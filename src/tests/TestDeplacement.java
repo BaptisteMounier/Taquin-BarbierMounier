@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.WinException;
 import jeu.*;
 
 public class TestDeplacement {
@@ -37,28 +38,28 @@ public class TestDeplacement {
 	}
 
 	@Test
-	public void test01_deplacement_haut(){
+	public void test01_deplacement_haut() throws WinException{
 		this.jeu.commande("z");
 		assertTrue("La tuile d'indice 0 devrait être en [2][1]",this.jeu.getPlateau().getTuiles()[2][1].getIndice() == 0);
 		assertTrue("La tuile d'indice 7 devrait être en [1][1]",this.jeu.getPlateau().getTuiles()[1][1].getIndice() == 7);
 	}
 
 	@Test
-	public void test02_deplacement_bas(){
+	public void test02_deplacement_bas() throws WinException{
 		this.jeu.commande("s");
 		assertTrue("La tuile d'indice 0 devrait être en [0][1]",this.jeu.getPlateau().getTuiles()[0][1].getIndice() == 0);
 		assertTrue("La tuile d'indice 5 devrait être en [1][1]",this.jeu.getPlateau().getTuiles()[1][1].getIndice() == 5);
 	}	
 
 	@Test
-	public void test03_deplacement_droite(){
+	public void test03_deplacement_droite() throws WinException{
 		this.jeu.commande("d");
 		assertTrue("La tuile d'indice 0 devrait être en [1][0]",this.jeu.getPlateau().getTuiles()[1][0].getIndice() == 0);
 		assertTrue("La tuile d'indice 2 devrait être en [1][1]",this.jeu.getPlateau().getTuiles()[1][1].getIndice() == 2);
 	}	
 
 	@Test
-	public void test04_deplacement_gauche(){
+	public void test04_deplacement_gauche() throws WinException{
 		this.jeu.commande("q");
 		assertTrue("La tuile d'indice 0 devrait être en [1][2]",this.jeu.getPlateau().getTuiles()[1][2].getIndice() == 0);
 		assertTrue("La tuile d'indice 10 devrait être en [1][1]",this.jeu.getPlateau().getTuiles()[1][1].getIndice() == 10);

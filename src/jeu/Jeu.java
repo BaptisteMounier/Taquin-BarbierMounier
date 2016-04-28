@@ -19,7 +19,7 @@ public class Jeu {
 	public Jeu(){
 		this.plateau = null;
 		this.taille = 4;
-		this.nbMelange = 10;
+		this.nbMelange = 75;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
 		this.ai = new Ai();
@@ -69,28 +69,38 @@ public class Jeu {
 	public void pas() throws WinException{
 		String com = this.joueur.pas();
 		this.commande(com);
-		this.affiche();
-		this.end();
 	}
 	
-	public void commande(String string){
+	public void commande(String string) throws WinException{
 		String[] commande = string.split(" ");
 		switch(commande[0]){
 		case "z":
-			if(this.plateau.moveUp())
+			if(this.plateau.moveUp()){
 				this.nbCoups++;
+				this.affiche();
+				this.end();
+			}
 			break;
 		case "s":
-			if(this.plateau.moveDown())
+			if(this.plateau.moveDown()){
 				this.nbCoups++;
+				this.affiche();
+				this.end();
+			}
 			break;
 		case "q":
-			if(this.plateau.moveLeft())
+			if(this.plateau.moveLeft()){
 				this.nbCoups++;
+				this.affiche();
+				this.end();
+			}
 			break;
 		case "d":
-			if(this.plateau.moveRight())
+			if(this.plateau.moveRight()){
 				this.nbCoups++;
+				this.affiche();
+				this.end();
+			}
 			break;
 		case "ai":
 			ArrayList<String> listeCommande = new ArrayList<String>();
@@ -99,18 +109,28 @@ public class Jeu {
 			if(nbCoups == 0){
 				for(String cmd : listeCommande){
 					this.commande(cmd);
+					//this.affiche();
+					this.end();
 				}
+				this.affiche();
 			}else{
 				for(int i = 0;i < nbCoups;i++){
 					this.commande(listeCommande.get(i));
+					//this.affiche();
+					this.end();
 				}
+				
 			}
 			break;
 		case "save":
 			this.save.sauvegarder(commande[1]);
+			this.affiche();
+			this.end();
 			break;
 		case "load":
 			this.charger(this.save.charger(commande[1]));
+			this.affiche();
+			this.end();
 			break;
 		}
 	}

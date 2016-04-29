@@ -143,7 +143,7 @@ public class Plateau {
 		for(int i = 0;i < this.taille && !possible;i++){
 			for(int j = 0;j < this.taille-1 && !possible;j++){
 				if(this.tuiles[i][j].getIndice() == 0){
-					this.switchTuiles(i, j, i, j+1);
+					this.switchTuiles(i, j, i, j-1);
 					possible = true;
 				}
 			}
@@ -156,7 +156,7 @@ public class Plateau {
 		for(int i = 0;i < this.taille && !possible;i++){
 			for(int j = 1;j < this.taille && !possible;j++){
 				if(this.tuiles[i][j].getIndice() == 0){
-					this.switchTuiles(i, j, i, j-1);
+					this.switchTuiles(i, j, i, j+1);
 					possible = true;
 				}
 			}

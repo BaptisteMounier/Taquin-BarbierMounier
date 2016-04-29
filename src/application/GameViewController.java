@@ -23,7 +23,7 @@ public class GameViewController implements Initializable {
 		@FXML
 	    private String score;
 	    @FXML
-	    private GridPane gridPane;
+	    private GridPane grille;
 	    @FXML
 	    private Pane fond;
 	    
@@ -46,13 +46,6 @@ public class GameViewController implements Initializable {
 	        creaVue();
 	    }
 	    
-	    public void nouvellePartie(){    	
-	    	this.tailleCase=100;
-	    	this.creaLabels();
-	    	this.creaTuile();
-	    	this.creaVue();
-	    }
-	    
 	    public Jeu getJeu(){
 	    	return this.jeu;
 	    }
@@ -61,13 +54,17 @@ public class GameViewController implements Initializable {
 	    	this.jeu=jeu;
 	    }
 	    
-	    public void creaLabels(){ 
+	    public void creaLabels(){
 	    	int taille = this.jeu.getTaille();
 	    	labels = new Label[taille*taille];
 	    	int chiffreCase;
 	    	for(int i=0;i<taille;i++){
 	            for(int j=0;j<taille;j++){
-	            	chiffreCase = i+ j;
+	            	if(i==0){
+	            	chiffreCase = i + j;
+	            	}else{
+	            		chiffreCase = i*3 + j +1;
+	            	}
 	            	if (chiffreCase==0){
 	            		this.labels[i*taille+j]=new Label(" ");
 	            	}
@@ -84,7 +81,7 @@ public class GameViewController implements Initializable {
 	    	tuile = new Pane[taille*taille];
 	    	for(int i =0;i<taille*taille;i++){
 	    		this.tuile[i]=new Pane();
-	    		//this.tuiles[i].setPrefSize(tailleCase,tailleCase);
+	    		this.tuile[i].setPrefSize(tailleCase,tailleCase);
 	    		this.tuile[i].setOnMouseClicked(new EventHandler<MouseEvent>()
 	            {
 	                @Override
@@ -106,16 +103,17 @@ public class GameViewController implements Initializable {
 	    	}
 	    }
 	    public void creaVue(){
+	    	int taille = this.jeu.getTaille();
 	    	for(int i=0;i<tuile.length;i++){
 	            tuile[i].getStyleClass().add("tuile"); 
 	            labels[i].getStyleClass().add("tuile");
-	            //gridPane.getStyleClass().add("gridpane");
+	            grille.getStyleClass().add("gridpane");
 	            fond.getChildren().add(tuile[i]);
 	            tuile[i].getChildren().add(labels[i]);
 	    	}
-	    	for(int l=0;l<jeu.getTaille();l++){
-	            for(int c=0;c<jeu.getTaille();c++){
-	            	int numCase = l*jeu.getTaille()+c;
+	    	for(int l=0;l<taille;l++){
+	            for(int c=0;c<taille;c++){
+	            	int numCase = l*taille+c;
 	            	tuile[numCase].setLayoutX(tailleCase*c);
 	            	tuile[numCase].setLayoutY(tailleCase*l);
 	            	tuile[numCase].setVisible(true);
@@ -124,7 +122,7 @@ public class GameViewController implements Initializable {
 	            }
 	    	}
 	    }
-	    
+	    /*
 	    public void updateVuePlateau(){
 	    	int taille = this.jeu.getTaille();
 	    	int chiffreCase;
@@ -140,7 +138,7 @@ public class GameViewController implements Initializable {
 	            }
 	    	}
 	        //score.setText(Integer.toString(this.jeu.getJoueur().getScore()));
-	    }
+	    }*/
 	    
 	    @FXML
 	    public void newGame(){
@@ -165,7 +163,7 @@ public class GameViewController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-           updateVuePlateau();
+        //updateVuePlateau();
 	    //Thread th = new Thread();
 	    //th.setDaemon(true);
 	    //th.start();

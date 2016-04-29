@@ -33,7 +33,7 @@ public class Jeu {
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
 		this.plateau = new Plateau(jeu.plateau);
-		this.save = new Sauvegarde(this);
+		//this.save = new Sauvegarde(this);
 	}
 	
 	public Jeu(Plateau plateau, int taille, int nbMelange, int nbCoups, Ai ai, Joueur joueur){
@@ -51,7 +51,7 @@ public class Jeu {
 		this.nbCoups = 0;
 		this.joueur.initialisation();
 		this.ai.initialisation();
-		this.save = new Sauvegarde(this);
+		//this.save = new Sauvegarde(this);
 		this.affiche();
 	}
 	
@@ -63,7 +63,7 @@ public class Jeu {
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
 		this.plateau = new Plateau(jeu.plateau);
-		this.save = new Sauvegarde(this);
+		//this.save = new Sauvegarde(this);
 	}
 	
 	public void pas() throws WinException{
@@ -75,32 +75,29 @@ public class Jeu {
 		String[] commande = string.split(" ");
 		switch(commande[0]){
 		case "z":
-			if(this.plateau.moveUp()){
+			this.plateau.moveUp();
 				this.nbCoups++;
 				this.affiche();
 				this.end();
-			}
 			break;
 		case "s":
-			if(this.plateau.moveDown()){
+			this.plateau.moveDown();
 				this.nbCoups++;
 				this.affiche();
 				this.end();
-			}
+			
 			break;
 		case "q":
-			if(this.plateau.moveLeft()){
+			this.plateau.moveLeft();
 				this.nbCoups++;
 				this.affiche();
 				this.end();
-			}
 			break;
 		case "d":
-			if(this.plateau.moveRight()){
+			this.plateau.moveRight();
 				this.nbCoups++;
 				this.affiche();
 				this.end();
-			}
 			break;
 		case "ai":
 			ArrayList<String> listeCommande = new ArrayList<String>();
@@ -123,12 +120,12 @@ public class Jeu {
 			}
 			break;
 		case "save":
-			this.save.sauvegarder(commande[1]);
+			//this.save.sauvegarder(commande[1]);
 			this.affiche();
 			this.end();
 			break;
 		case "load":
-			this.charger(this.save.charger(commande[1]));
+			//this.charger(this.save.charger(commande[1]));
 			this.affiche();
 			this.end();
 			break;

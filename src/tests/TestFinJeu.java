@@ -23,11 +23,11 @@ public class TestFinJeu {
 		int ind = 1;
 		for (int i=0; i < nb_tuile; i++){
 			for (int j=0; j < nb_tuile; j++){
-				tuiles[j][i]= new Tuile(ind,i,j);
+				tuiles[i][j]= new Tuile(ind,i,j);
 				ind++;
 			}
 		}
-		this.jeu.setPlateau(new Plateau(tuiles));
+		this.jeu.setPlateau(new Plateau(tuiles, nb_tuile, 0, nb_tuile*nb_tuile));
 		this.jeu.end();
 	}	
 

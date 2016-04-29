@@ -14,7 +14,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		if(args.length == 0){
-			System.out.println("Lancement du programme sans GUI\n==========\n");
+			System.out.println("==========");
+			System.out.println("Lancement du programme sans GUI");
 			Jeu jeu = new Jeu();
 			MoteurJeu moteurJeu = new MoteurJeu(jeu);
 			moteurJeu.play();

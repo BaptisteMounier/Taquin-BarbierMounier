@@ -32,9 +32,16 @@ public class Plateau {
 		for (int i=0;i < this.taille;i++){
 			for (int j=0; j < this.taille; j++){
 				int indice = plateau.getTuiles()[i][j].getIndice();
-				this.tuiles[i][j]= new Tuile(indice,i,j);
+				this.tuiles[i][j]= new Tuile(indice,plateau.getTuiles()[i][j].getXObjectif(),plateau.getTuiles()[i][j].getYObjectif());
 			}
 		}
+	}
+	
+	public Plateau(Tuile[][] tuiles, int taille, int nbMelange, int indiceMax){
+		this.tuiles = tuiles;
+		this.taille = taille;
+		this.nbMelange = nbMelange;
+		this.indiceMax = indiceMax;
 	}
 
 	public void initialisation() {
@@ -168,6 +175,10 @@ public class Plateau {
 	public int getNbMelange(){
 		return this.nbMelange;
 	}
+
+	public int getIndiceMax() {
+		return this.indiceMax;
+	}
 	
 	public boolean equals(Object p){
 		boolean identique = true;
@@ -186,7 +197,8 @@ public class Plateau {
 			for(int j = 0;j < this.tuiles[i].length;j++){
 				string += this.tuiles[i][j].toString()+" ";
 			}
-			string += "\n";
+			if(i < this.tuiles.length-1)
+				string += "\n";
 		}
 		return string;
 	}

@@ -3,6 +3,7 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exceptions.WinException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -18,8 +19,7 @@ import javafx.scene.layout.Pane;
 import jeu.Jeu;
 
 public class GameViewController implements Initializable {
-
-		
+	
 		@FXML
 	    private String score;
 	    @FXML
@@ -34,20 +34,20 @@ public class GameViewController implements Initializable {
 	    private boolean select;
 	    private Label[] labels;
 	    private double tailleCase = 100;
+		
 
-	    
-	    
-	    
+
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        this.jeu = new Jeu();
-	        this.tailleCase=397/4;
+	        this.tailleCase=100;
 	        creaLabels();
 	        creaTuile();
 	        creaVue();
 	    }
+	    
 	    public void nouvellePartie(){    	
-	    	this.tailleCase=397/4;
+	    	this.tailleCase=100;
 	    	this.creaLabels();
 	    	this.creaTuile();
 	    	this.creaVue();
@@ -116,8 +116,8 @@ public class GameViewController implements Initializable {
 	    	for(int l=0;l<jeu.getTaille();l++){
 	            for(int c=0;c<jeu.getTaille();c++){
 	            	int numCase = l*jeu.getTaille()+c;
-	            	tuile[numCase].setLayoutX(150+tailleCase*c);
-	            	tuile[numCase].setLayoutY(10+tailleCase*l);
+	            	tuile[numCase].setLayoutX(tailleCase*c);
+	            	tuile[numCase].setLayoutY(tailleCase*l);
 	            	tuile[numCase].setVisible(true);
 	                labels[numCase].setVisible(true);
 
@@ -145,16 +145,32 @@ public class GameViewController implements Initializable {
 	    @FXML
 	    public void newGame(){
 	    	this.jeu= new Jeu();
+	    	//tuile.getStyleClass().add("tuile");
+	        //grille.getStyleClass().add("gridpane");
+	        //fond.getChildren().add(p);
 	    }
 
 	    @FXML
+	    private void start(MouseEvent event) {
+	        System.out.println("Clic de souris sur le bouton start");
+	        this.jeu= new Jeu();
+	    }
+	    
+	    @FXML
 	    public void keyPressed(KeyEvent ke) {
 	       String touche = ke.getText();
-	       jeu.commande(touche);
+	       try {
+			jeu.commande(touche);
+		} catch (WinException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
            updateVuePlateau();
 	    //Thread th = new Thread();
 	    //th.setDaemon(true);
 	    //th.start();
 
 	    }
-}
+
+	        
+	}

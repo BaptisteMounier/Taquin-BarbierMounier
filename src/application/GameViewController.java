@@ -40,6 +40,7 @@ public class GameViewController implements Initializable {
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        this.jeu = new Jeu();
+	        this.jeu.initialisation();
 	        this.tailleCase = 397/4;
 	        this.creaLabels();
 	        this.creaTuile();
@@ -122,6 +123,7 @@ public class GameViewController implements Initializable {
 	            }
 	    	}
 	    }
+	    
 	    /*
 	    public void updateVuePlateau(){
 	    	int taille = this.jeu.getTaille();
@@ -160,7 +162,6 @@ public class GameViewController implements Initializable {
 	       try {
 			jeu.commande(touche);
 		} catch (WinException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         //updateVuePlateau();

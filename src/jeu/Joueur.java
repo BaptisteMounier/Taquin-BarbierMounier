@@ -81,6 +81,14 @@ public class Joueur {
 	}
 	
 	/**
+	 * Setteur du score du joueur
+	 * @param Le score du joueur
+	 */
+	public void setScore(int score){
+		this.score = score;
+	}
+	
+	/**
 	 * Getteur du top score du joueur
 	 * @return Le top du joueur
 	 */

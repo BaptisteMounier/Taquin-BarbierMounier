@@ -3,7 +3,7 @@ import jeu.*;
 
 public class Main {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		if(args.length == 0){
 			System.out.println("==========");
 			System.out.println("Lancement du programme sans GUI");

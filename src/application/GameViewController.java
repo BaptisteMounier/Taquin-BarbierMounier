@@ -1,6 +1,7 @@
 package application;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import exceptions.WinException;
@@ -18,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
-import jeu.Jeu;
+import jeu.*;
 
 /**
  * Controleur de la fenetre de jeu
@@ -205,11 +206,12 @@ public class GameViewController implements Initializable {
 
 	    /**
 	     * Methode appelee lors du clique sur le bouton help
+	     * @throws InterruptedException 
 	     */
 	    @FXML
-	    private void buttonHelp(MouseEvent event) {
+	    private void buttonHelp(MouseEvent event) throws InterruptedException {
 	    	try {
-				this.jeu.commande("ai 1");
+	    		this.jeu.commande("ai 1");
 				this.updateVuePlateau();
 			} catch (WinException e) {
 		    	this.newGame();
@@ -218,12 +220,22 @@ public class GameViewController implements Initializable {
 
 	    /**
 	     * Methode appelee lors du clique sur le bouton full help
+	     * @throws InterruptedException 
 	     */
 	    @FXML
-	    private void buttonFullHelp(MouseEvent event) {
+	    private void buttonFullHelp(MouseEvent event) throws InterruptedException {
 	    	try {
-				this.jeu.commande("ai 0");
-				this.updateVuePlateau();
+				//this.jeu.commande("ai 0");
+				//this.updateVuePlateau();
+				Ai ai = new Ai();
+				ArrayList<String> listeCommande = new ArrayList<String>();
+				listeCommande = ai.aide(this.jeu.getPlateau());
+				for(String cmd : listeCommande){
+					this.jeu.commande(cmd);
+					this.jeu.getJoueur().updateScore(-1);
+					this.updateVuePlateau();
+					Thread.sleep(1000);
+				}
 			} catch (WinException e) {
 		    	this.newGame();
 			}
@@ -234,9 +246,10 @@ public class GameViewController implements Initializable {
 	     * recuperation de la touche presser
 	     * appel commande mouvement
 	     * @param ke touche pressee
+	     * @throws InterruptedException 
 	     */
 	    @FXML
-	    public void keyPressed(KeyEvent ke) {
+	    public void keyPressed(KeyEvent ke) throws InterruptedException {
 	       String touche = ke.getText();
 	       try {
 	    	   jeu.commande(touche);

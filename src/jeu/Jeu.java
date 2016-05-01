@@ -53,7 +53,7 @@ public class Jeu {
 		this.nbMelange = 50;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
-		this.joueur.updateScore(nbMelange);
+		this.joueur.setScore(nbMelange);
 		this.ai = new Ai();
 	}
 	
@@ -68,7 +68,7 @@ public class Jeu {
 		this.nbCoups = jeu.getNbCoups();
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
-		this.joueur.updateScore(nbMelange);
+		this.joueur.setScore(nbMelange);
 		this.plateau = new Plateau(jeu.plateau);
 		this.save = new Sauvegarde(this);
 	}
@@ -89,7 +89,7 @@ public class Jeu {
 		this.nbCoups = nbCoups;
 		this.ai = ai;
 		this.joueur = joueur;
-		this.joueur.updateScore(nbMelange);
+		this.joueur.setScore(nbMelange);
 	}
 
 	/**
@@ -100,6 +100,7 @@ public class Jeu {
 		this.plateau.initialisation();
 		this.nbCoups = 0;
 		this.save = new Sauvegarde(this);
+		this.joueur.setScore(nbMelange);
 		this.affiche();
 	}
 	
@@ -122,8 +123,9 @@ public class Jeu {
 	/**
 	 * Methode d un pas de jeu (tour de jeu de la part du joueur)
 	 * @throws WinException Exception levee lors que le taquin est reussi
+	 * @throws InterruptedException 
 	 */
-	public void pas() throws WinException{
+	public void pas() throws WinException, InterruptedException{
 		String com = this.joueur.pas();
 		this.commande(com);
 	}
@@ -132,8 +134,9 @@ public class Jeu {
 	 * Methode executant la commande rentree
 	 * @param string Chaine correspondant a la commande
 	 * @throws WinException Exception levee lors que le taquin est reussi
+	 * @throws InterruptedException 
 	 */
-	public void commande(String string) throws WinException{
+	public void commande(String string) throws WinException, InterruptedException{
 		String[] commande = string.split(" ");
 		switch(commande[0]){
 		case "z":
@@ -175,15 +178,14 @@ public class Jeu {
 			if(nbCoups == 0){
 				for(String cmd : listeCommande){
 					this.commande(cmd);
-					this.joueur.updateScore(-50);
-					this.end();
+					this.joueur.updateScore(-1);
+					Thread.sleep(1000);
 				}
-				this.affiche();
 			}else{
 				for(int i = 0;i < nbCoups;i++){
 					this.commande(listeCommande.get(i));
-					this.joueur.updateScore(-5);
-					this.end();
+					this.joueur.updateScore(-1);
+					Thread.sleep(1000);
 				}
 				
 			}

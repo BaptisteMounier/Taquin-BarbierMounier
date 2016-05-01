@@ -22,8 +22,9 @@ public class MoteurJeu {
 	
 	/**
 	 * Methode de la boucle de jeu
+	 * @throws InterruptedException 
 	 */
-	public void play(){
+	public void play() throws InterruptedException{
 		try{
 			jeu.initialisation();
 			while(true){
@@ -37,8 +38,9 @@ public class MoteurJeu {
 	
 	/**
 	 * Methode relance une nouvelle partie
+	 * @throws InterruptedException 
 	 */
-	public void newGame(){
+	public void newGame() throws InterruptedException{
 		System.out.println("Nouvelle partie !");
 		this.play();
 	}

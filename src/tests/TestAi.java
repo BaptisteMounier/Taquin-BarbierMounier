@@ -58,7 +58,7 @@ public class TestAi {
 	}
 
 	@Test(expected = WinException.class)
-	public void test03_resolution() throws WinException{
+	public void test03_resolution() throws WinException, InterruptedException{
 		Jeu jeu = new Jeu();
 		jeu.initialisation();
 		jeu.commande("ai 0");

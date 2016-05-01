@@ -42,6 +42,11 @@ public class Jeu {
 	private Joueur joueur;
 	
 	/**
+	 * La sauvegarde
+	 */
+	private Sauvegarde save;
+	
+	/**
 	 * Constructeur vide, cree un Jeu avec des valeurs de base
 	 */
 	public Jeu(){
@@ -65,6 +70,7 @@ public class Jeu {
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
 		this.plateau = new Plateau(jeu.plateau);
+		this.save = new Sauvegarde(this);
 	}
 	
 	/**
@@ -94,6 +100,7 @@ public class Jeu {
 		this.nbCoups = 0;
 		this.joueur.initialisation();
 		this.ai.initialisation();
+		this.save = new Sauvegarde(this);
 		this.affiche();
 	}
 	
@@ -109,6 +116,7 @@ public class Jeu {
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
 		this.plateau = new Plateau(jeu.plateau);
+		this.save = new Sauvegarde(this);
 	}
 	
 	/**
@@ -129,29 +137,32 @@ public class Jeu {
 		String[] commande = string.split(" ");
 		switch(commande[0]){
 		case "z":
-			this.plateau.moveUp();
+			if(this.plateau.moveUp()){
 				this.nbCoups++;
 				this.affiche();
 				this.end();
+			}
 			break;
 		case "s":
-			this.plateau.moveDown();
+			if(this.plateau.moveDown()){
 				this.nbCoups++;
 				this.affiche();
 				this.end();
-			
+			}
 			break;
 		case "q":
-			this.plateau.moveLeft();
+			if(this.plateau.moveLeft()){
 				this.nbCoups++;
 				this.affiche();
 				this.end();
+			}
 			break;
 		case "d":
-			this.plateau.moveRight();
+			if(this.plateau.moveRight()){
 				this.nbCoups++;
 				this.affiche();
 				this.end();
+			}
 			break;
 		case "ai":
 			ArrayList<String> listeCommande = new ArrayList<String>();
@@ -172,12 +183,12 @@ public class Jeu {
 			}
 			break;
 		case "save":
-			//this.save.sauvegarder(commande[1]);
+			this.save.sauvegarder(commande[1]);
 			this.affiche();
 			this.end();
 			break;
 		case "load":
-			//this.charger(this.save.charger(commande[1]));
+			this.charger(this.save.charger(commande[1]));
 			this.affiche();
 			this.end();
 			break;
@@ -241,7 +252,6 @@ public class Jeu {
 		return this.nbCoups;
 	}
 
-	
 	/**
 	 * Setteur du Plateau
 	 * @param plateau

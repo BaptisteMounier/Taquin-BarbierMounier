@@ -2,12 +2,30 @@ package jeu;
 
 import java.util.ArrayList;
 
+/**
+ * Classe de recherche de resolution du type A*
+ */
 public class Recherche {
 	
+	/**
+	 * Liste des etats ouverts
+	 */
 	private ArrayList<Etat> ouvert;
+	
+	/**
+	 * Liste des etats fermes
+	 */
 	private ArrayList<Etat> fermee;
+	
+	/**
+	 * Liste des commandes pour atteindre la resolution
+	 */
 	private ArrayList<String> listeCommande;
 	
+	/**
+	 * Constructeur a partir du premier etat sur lequel on effectue la recherche
+	 * @param e Premier etat de la recherche
+	 */
 	public Recherche(Etat e){
 		this.ouvert = new ArrayList<Etat>();
 		this.ouvert.add(e);
@@ -15,6 +33,10 @@ public class Recherche {
 		this.listeCommande = new ArrayList<String>();
 	}
 	
+	/**
+	 * Methode de recherche A*
+	 * @return La liste des commandes pour atteindre l etat de resolution
+	 */
 	public ArrayList<String> recherche(){
 		boolean trouvee = false;
 		while(!this.ouvert.isEmpty() && !trouvee){
@@ -49,7 +71,11 @@ public class Recherche {
 		return this.listeCommande;	
 	}
 	
-	public Etat ouvertChoix(){
+	/**
+	 * Methode privee permettant d obtenir l etat dans la liste ouverte qui a le plus faible cout total
+	 * @return L etat avec le cout total le plus faible
+	 */
+	private Etat ouvertChoix(){
 		Etat mini = this.ouvert.get(0);
 		for(Etat e : this.ouvert){
 			if(e.getCout() < mini.getCout())

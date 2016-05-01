@@ -5,14 +5,40 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Classe de gestion de la sauvegarde
+ */
 public class Sauvegarde {
 	
+	/**
+	 * L extension utilise pour les fichier
+	 */
 	private String extension;
+	
+	/**
+	 * Le chemin jusqu au fichier de sauvegarde (le dossier)
+	 */
 	private String path;
+	
+	/**
+	 * Le Jeu associe a la sauvegarde
+	 */
 	private Jeu jeu;
+	
+	/**
+	 * La chaine de separation entre deux elements utilisee dans le fichier
+	 */
 	private final static String SEPARATOR =":";
+	
+	/**
+	 * La chaine de separation entre deux lignes utilisee dans le fichier
+	 */
 	private final static String NEWLINE = System.getProperty("line.separator" );
 
+	/**
+	 * Constructeur a partir du Jeu associe a la sauvegarde
+	 * @param jeu Jeu associe
+	 */
 	public Sauvegarde(Jeu jeu) {
 		this.extension = ".taquin";
 		this.path = "saves/";
@@ -20,6 +46,10 @@ public class Sauvegarde {
 		this.createContent();
 	}
 
+	/**
+	 * Methode de sauvegarde a partir du nom de fichier (chemin et extension exclu)
+	 * @param string Nom du fichier
+	 */
 	public void sauvegarder(String string) {
 		File file = new File(this.path+string+this.extension);		
 		FileOutputStream fos = null;
@@ -43,6 +73,11 @@ public class Sauvegarde {
 		      }		
 	}
 
+	/**
+	 * Methode de chargement du Jeu a partir du nom du fichier (chemin et extension exclu)
+	 * @param string Nom du fichier
+	 * @return Jeu associe a la sauvegarde cible
+	 */
 	public Jeu charger(String string) {
 		File file = new File(this.path+string+this.extension);		
 		FileInputStream fis = null;
@@ -67,6 +102,10 @@ public class Sauvegarde {
 		return this.jeu;
 	}
 	
+	/**
+	 * Methode qui cree sous forme d une chaine le contenu du Jeu associe
+	 * @return Chaine correspondant au Jeu
+	 */
 	private String createContent(){
 
 		String content = "";
@@ -102,6 +141,10 @@ public class Sauvegarde {
 		return content;
 	}
 	
+	/**
+	 * Methode qui cree un Jeu a partir d une chaine le decrivant
+	 * @param c Chaine decrivant un jeu
+	 */
 	private void createJeu(String c){
 		
 		String[] content = c.split(Sauvegarde.NEWLINE);

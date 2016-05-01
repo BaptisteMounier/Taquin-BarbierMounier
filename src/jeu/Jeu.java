@@ -69,6 +69,7 @@ public class Jeu {
 		this.nbCoups = jeu.getNbCoups();
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
+		this.joueur.updateScore(nbMelange);
 		this.plateau = new Plateau(jeu.plateau);
 		this.save = new Sauvegarde(this);
 	}
@@ -89,6 +90,7 @@ public class Jeu {
 		this.nbCoups = nbCoups;
 		this.ai = ai;
 		this.joueur = joueur;
+		this.joueur.updateScore(nbMelange);
 	}
 
 	/**
@@ -113,6 +115,7 @@ public class Jeu {
 		this.nbCoups = jeu.getNbCoups();
 		this.ai = jeu.getAi();
 		this.joueur = jeu.getJoueur();
+		this.joueur.updateScore(nbMelange);
 		this.plateau = new Plateau(jeu.plateau);
 		this.save = new Sauvegarde(this);
 	}
@@ -169,12 +172,14 @@ public class Jeu {
 			if(nbCoups == 0){
 				for(String cmd : listeCommande){
 					this.commande(cmd);
+					this.joueur.updateScore(-1);
 					this.end();
 				}
 				this.affiche();
 			}else{
 				for(int i = 0;i < nbCoups;i++){
 					this.commande(listeCommande.get(i));
+					this.joueur.updateScore(-1);
 					this.end();
 				}
 				
@@ -191,6 +196,7 @@ public class Jeu {
 			this.end();
 			break;
 		}
+		this.joueur.updateScore(-1);
 	}
 	
 	/**

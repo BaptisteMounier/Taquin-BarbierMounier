@@ -29,6 +29,7 @@ public class Joueur {
 	public Joueur(String n){
 		this.nom = n;
 		this.score = 0;
+		this.top = 0;
 	}
 	
 	/**
@@ -53,6 +54,14 @@ public class Joueur {
 		System.out.println("Que souhaitez-vous faire ? (z/s/q/d/ai 0 (resolution complete)/ai nombrePas/save nomFichier/load nomFichier)");
 		String com = sc.nextLine();
 		return com;
+	}
+	
+	/**
+	 * Mise a jour du score du joueur
+	 * @param modification Modification a apporter au score
+	 */
+	public void updateScore(int modification){
+		this.score += modification;
 	}
 	
 	/**

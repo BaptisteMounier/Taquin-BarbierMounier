@@ -90,7 +90,7 @@ public class Joueur {
 	
 	/**
 	 * Setteur du top score du joueur
-	 * @param Le nouveau top du joueur
+	 * @param top Le nouveau top du joueur
 	 */
 	public void setTop(int top){
 		this.top = top;

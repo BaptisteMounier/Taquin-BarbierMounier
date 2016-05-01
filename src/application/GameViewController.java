@@ -62,9 +62,9 @@ public class GameViewController implements Initializable {
 	    	for(int i=0;i<taille;i++){
 	            for(int j=0;j<taille;j++){
 	            	if(this.jeu.getPlateau().getTuiles()[i][j].getIndice() == 0)
-	            		chiffreCase = " ";
+	            		this.labels[i*taille+j] = new Label(" ");
 	            	else
-	            		chiffreCase = Integer.toString(this.jeu.getPlateau().getTuiles()[i][j].getIndice());
+	            		this.labels[i*taille+j] = new Label(Integer.toString(this.jeu.getPlateau().getTuiles()[i][j].getIndice()));
 	            }
 	    	}
 	    }

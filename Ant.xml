@@ -3,10 +3,8 @@
 	basedir=".">
 	<property name="version" value="V1" />
 
-
-	<target name="clean">
-		<delete dir="bin" />
-		<echo message="Suppression du dossier bin terminee" />
+	<target name="run">
+		<java jar="dist/Taquin${version}.jar" fork="true" />
 	</target>
 
 	<target name="compile">
@@ -24,8 +22,9 @@
 		<echo message="Creation du fichier Jar dans le dossier dist terminee" />
 	</target>
 
-	<target name="run">
-		<java jar="dist/Taquin${version}.jar" fork="true" />
+	<target name="clean" depends="jar">
+		<delete dir="bin" />
+		<echo message="Suppression du dossier bin terminee" />
 	</target>
 	
 	<target name="build_run" depends="jar,run"/>

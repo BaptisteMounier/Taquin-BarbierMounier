@@ -33,17 +33,17 @@ public class GameViewController implements Initializable {
 	    private int selection; 
 	    private boolean select;
 	    private Label[] labels;
-	    private double tailleCase = 100;
+	    private double tailleCase;
 		
 
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        this.jeu = new Jeu();
-	        this.tailleCase=100;
-	        creaLabels();
-	        creaTuile();
-	        creaVue();
+	        this.tailleCase = 397/4;
+	        this.creaLabels();
+	        this.creaTuile();
+	        this.creaVue();
 	    }
 	    
 	    public Jeu getJeu(){

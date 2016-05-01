@@ -10,8 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class MainGUI extends Application{
+	
 	public void start(Stage stage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("GameView.fxml"));
         Scene scene = new Scene(root);
@@ -19,9 +19,9 @@ public class MainGUI extends Application{
         stage.setScene(scene);
         stage.show();
 	}
-     	
-     	public static void main(String[] args) {
-     		launch(args);
-     	}
-     		
-     }
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+}

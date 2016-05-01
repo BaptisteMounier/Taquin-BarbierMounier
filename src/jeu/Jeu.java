@@ -175,14 +175,14 @@ public class Jeu {
 			if(nbCoups == 0){
 				for(String cmd : listeCommande){
 					this.commande(cmd);
-					this.joueur.updateScore(-1);
+					this.joueur.updateScore(-50);
 					this.end();
 				}
 				this.affiche();
 			}else{
 				for(int i = 0;i < nbCoups;i++){
 					this.commande(listeCommande.get(i));
-					this.joueur.updateScore(-1);
+					this.joueur.updateScore(-5);
 					this.end();
 				}
 				
@@ -190,13 +190,11 @@ public class Jeu {
 			break;
 		case "save":
 			this.save.sauvegarder(commande[1]);
-			this.joueur.updateScore(-5);
 			this.affiche();
 			this.end();
 			break;
 		case "load":
 			this.charger(this.save.charger(commande[1]));
-			this.joueur.updateScore(-50);
 			this.affiche();
 			this.end();
 			break;

@@ -87,5 +87,13 @@ public class Joueur {
 	public int getTop(){
 		return this.top;
 	}
+	
+	/**
+	 * Setteur du top score du joueur
+	 * @param Le nouveau top du joueur
+	 */
+	public void setTop(int top){
+		this.top = top;
+	}
 
 }

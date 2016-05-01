@@ -106,6 +106,10 @@ public class Plateau {
 	}
 	
 	public void switchTuiles(int x_a, int y_a, int x_b, int y_b){
+		System.out.println(x_a);
+		System.out.println(y_a);
+		System.out.println(x_b);
+		System.out.println(y_b);
 		Tuile temporaire = this.tuiles[x_a][y_a];
 		this.tuiles[x_a][y_a] = this.tuiles[x_b][y_b];
 		this.tuiles[x_b][y_b] = temporaire;
@@ -143,7 +147,7 @@ public class Plateau {
 		for(int i = 0;i < this.taille && !possible;i++){
 			for(int j = 0;j < this.taille-1 && !possible;j++){
 				if(this.tuiles[i][j].getIndice() == 0){
-					this.switchTuiles(i, j, i, j-1);
+					this.switchTuiles(i, j, i, j+1);
 					possible = true;
 				}
 			}
@@ -156,7 +160,7 @@ public class Plateau {
 		for(int i = 0;i < this.taille && !possible;i++){
 			for(int j = 1;j < this.taille && !possible;j++){
 				if(this.tuiles[i][j].getIndice() == 0){
-					this.switchTuiles(i, j, i, j+1);
+					this.switchTuiles(i, j, i, j-1);
 					possible = true;
 				}
 			}

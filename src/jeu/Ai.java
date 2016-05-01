@@ -28,7 +28,7 @@ public class Ai extends Joueur{
 	}
 
 	/**
-	 * Methode de résolution de la partie à partir du plateau en creant la recherche
+	 * Methode de resolution de la partie a partir du plateau en creant la recherche
 	 * @param plateau Plateau a resoudre
 	 */
 	public ArrayList<String> aide(Plateau plateau){

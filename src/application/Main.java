@@ -3,7 +3,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import application.*;
 import jeu.*;
 
 public class Main {

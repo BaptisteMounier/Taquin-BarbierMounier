@@ -55,6 +55,7 @@ public class Jeu {
 		this.nbMelange = 75;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
+		this.joueur.updateScore(nbMelange);
 		this.ai = new Ai();
 	}
 	

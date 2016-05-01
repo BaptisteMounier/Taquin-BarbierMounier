@@ -1,8 +1,6 @@
 package jeu;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Stack;
 
 import exceptions.WinException;
 
@@ -52,7 +50,7 @@ public class Jeu {
 	public Jeu(){
 		this.plateau = null;
 		this.taille = 4;
-		this.nbMelange = 75;
+		this.nbMelange = 50;
 		this.nbCoups = 0;
 		this.joueur = new Joueur("Joueur 1");
 		this.joueur.updateScore(nbMelange);
@@ -141,6 +139,7 @@ public class Jeu {
 		case "z":
 			if(this.plateau.moveUp()){
 				this.nbCoups++;
+				this.joueur.updateScore(-1);
 				this.affiche();
 				this.end();
 			}
@@ -148,6 +147,7 @@ public class Jeu {
 		case "s":
 			if(this.plateau.moveDown()){
 				this.nbCoups++;
+				this.joueur.updateScore(-1);
 				this.affiche();
 				this.end();
 			}
@@ -155,6 +155,7 @@ public class Jeu {
 		case "q":
 			if(this.plateau.moveLeft()){
 				this.nbCoups++;
+				this.joueur.updateScore(-1);
 				this.affiche();
 				this.end();
 			}
@@ -162,6 +163,7 @@ public class Jeu {
 		case "d":
 			if(this.plateau.moveRight()){
 				this.nbCoups++;
+				this.joueur.updateScore(-1);
 				this.affiche();
 				this.end();
 			}
@@ -188,16 +190,17 @@ public class Jeu {
 			break;
 		case "save":
 			this.save.sauvegarder(commande[1]);
+			this.joueur.updateScore(-5);
 			this.affiche();
 			this.end();
 			break;
 		case "load":
 			this.charger(this.save.charger(commande[1]));
+			this.joueur.updateScore(-50);
 			this.affiche();
 			this.end();
 			break;
 		}
-		this.joueur.updateScore(-1);
 	}
 	
 	/**
@@ -251,7 +254,7 @@ public class Jeu {
 
 	/**
 	 * Getteur du nombre de coups
-	 * @return
+	 * @return Le nombre de coups
 	 */
 	public int getNbCoups() {
 		return this.nbCoups;
@@ -259,7 +262,7 @@ public class Jeu {
 
 	/**
 	 * Setteur du Plateau
-	 * @param plateau
+	 * @param plateau Le plateau voulu
 	 */
 	public void setPlateau(Plateau plateau){
 		this.plateau = new Plateau(plateau);

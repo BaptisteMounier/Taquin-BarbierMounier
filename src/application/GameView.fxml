@@ -28,11 +28,13 @@
                   <Insets />
                </opaqueInsets>
             </GridPane>
-            <Button fx:id="newgame" layoutX="178.0" layoutY="126.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="New Game" />
+            <Button fx:id="newgame" onMouseClicked="#buttonStart" layoutX="225.0" layoutY="126.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="New Game" />
+            <Button fx:id="buttonhelp" onMouseClicked="#buttonHelp" layoutX="25.0" layoutY="126.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Help" />
+            <Button fx:id="buttonfullhelp" onMouseClicked="#buttonFullHelp" layoutX="125.0" layoutY="126.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Full Help" />
             <Pane layoutX="179.0" layoutY="28.0" prefHeight="79.0" prefWidth="100.0" style="-fx-background-color: yellow;">
                <children>
                   <Label layoutX="32.0" layoutY="14.0" text="Moves" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="40.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
+                  <Label fx:id="move" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="40.0" prefHeight="21.0" prefWidth="37.0" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>

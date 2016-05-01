@@ -17,22 +17,25 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextAlignment;
 import jeu.Jeu;
 
-/** Contrôleur de la fenêtre de jeu */
+/**
+ * Controleur de la fenetre de jeu
+ */
 public class GameViewController implements Initializable {
 	
 		/**
 		 * variable du fichier .fxml
 		 */
-		@FXML
-	    private String score;
 	    @FXML
 	    private GridPane grille;
 	    @FXML
 	    private Pane fond;
 	    @FXML
 	    private Button newgame;
+	    @FXML
+	    private Label move;
 	    
 	    /**
 	     * variables globale hors .fxml
@@ -60,21 +63,22 @@ public class GameViewController implements Initializable {
 	    
 	    /**
 	     * retourne le jeu du controller
-	     * @return jeu
+	     * @return jeu Le Jeu
 	     */
 	    public Jeu getJeu(){
 	    	return this.jeu;
 	    }
 	    
 	    /**
-	     * réaffection du jeu
-	     * @param jeu
+	     * reaffection du jeu
+	     * @param jeu Le Jeu
 	     */
 	    public void setJeu(Jeu jeu){
 	    	this.jeu=jeu;
 	    }
 	    
-	    /** Initialisation des labels des cases
+	    /**
+	     * Initialisation des labels des cases
 	     */
 	    
 	    public void creaLabels(){
@@ -85,11 +89,17 @@ public class GameViewController implements Initializable {
 	    	for(int i=0;i<taille;i++){
 	            for(int j=0;j<taille;j++){
 	            	chiffreCase = this.jeu.getPlateau().getTuiles()[i][j].getIndice();
-	            	if(chiffreCase == 0)
+	            	if(chiffreCase == 0){
 	            		this.labels[i*taille+j]=new Label(" ");
-	            	else{
+	            		this.labels[i*taille+j].setTextAlignment(TextAlignment.CENTER);
+	            		this.labels[i*taille+j].setPrefWidth(tailleCase);
+	            		this.labels[i*taille+j].setPrefHeight(tailleCase);
+	            	}else{
 		            	labelCase = Integer.toString(chiffreCase);
 	            		this.labels[i*taille+j]=new Label(labelCase);
+	            		this.labels[i*taille+j].setTextAlignment(TextAlignment.CENTER);
+	            		this.labels[i*taille+j].setPrefWidth(tailleCase);
+	            		this.labels[i*taille+j].setPrefHeight(tailleCase);
 	            	}
 	            }
 	    	}
@@ -130,6 +140,8 @@ public class GameViewController implements Initializable {
 	     */
 	    public void creaVue(){
 	    	int taille = this.jeu.getTaille();
+	    	this.move.setVisible(true);
+	    	this.move.setText(Integer.toString(this.jeu.getNbCoups()));
 	    	for(int i=0;i<tuile.length;i++){
 	            tuile[i].getStyleClass().add("tuile"); 
 	            labels[i].getStyleClass().add("pane");
@@ -166,11 +178,11 @@ public class GameViewController implements Initializable {
 	            	}
 	            }
 	    	}
-	        score =Integer.toString(this.jeu.getJoueur().getScore());
+	        this.move.setText(Integer.toString(this.jeu.getNbCoups()));
 	    }
 	    
 	    /**
-	     * remise à zero du jeu
+	     * remise a zero du jeu
 	     */
 	    @FXML
 	    public void newGame(){
@@ -180,41 +192,62 @@ public class GameViewController implements Initializable {
 	        this.creaLabels();
 	        this.creaTuile();
 	        this.creaVue();
+			this.updateVuePlateau();
 	    }
 
 	    /**
-	     * remise à zero du jeu
+	     * Methode appelee lors du clique sur le bouton start
 	     */
 	    @FXML
-	    private void start(MouseEvent event) {
-	        System.out.println("Clic de souris sur le bouton start");
-	        this.jeu= new Jeu();
-	        this.jeu.initialisation();
-	        this.tailleCase = 397/4;
-	        this.creaLabels();
-	        this.creaTuile();
-	        this.creaVue();
+	    private void buttonStart(MouseEvent event) {
+	    	this.newGame();
 	    }
+
+	    /**
+	     * Methode appelee lors du clique sur le bouton help
+	     */
+	    @FXML
+	    private void buttonHelp(MouseEvent event) {
+	    	try {
+				this.jeu.commande("ai 1");
+				this.updateVuePlateau();
+			} catch (WinException e) {
+		    	this.newGame();
+			}
+	    }
+
+	    /**
+	     * Methode appelee lors du clique sur le bouton full help
+	     */
+	    @FXML
+	    private void buttonFullHelp(MouseEvent event) {
+	    	try {
+				this.jeu.commande("ai 0");
+				this.updateVuePlateau();
+			} catch (WinException e) {
+		    	this.newGame();
+			}
+	    }
+	    
 	    /**
 	     * gestion du mouvement des tuiles.
-	     * récupération de la touche presser
+	     * recuperation de la touche presser
 	     * appel commande mouvement
-	     * @param ke  touche pressé
+	     * @param ke touche pressee
 	     */
 	    @FXML
 	    public void keyPressed(KeyEvent ke) {
 	       String touche = ke.getText();
 	       try {
-			jeu.commande(touche);
-		} catch (WinException e) {
-			e.printStackTrace();
-		}
-        updateVuePlateau();
-	    Thread th = new Thread();
-	    th.setDaemon(true);
-	    th.start();
-
-	    }
+	    	   jeu.commande(touche);
+	    	   }catch (WinException e){
+	    		   this.newGame();
+	    		   }
+	       updateVuePlateau();
+	       Thread th = new Thread();
+	       th.setDaemon(true);
+	       th.start();
+	      }
 
 	        
 	}

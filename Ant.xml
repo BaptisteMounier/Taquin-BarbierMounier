@@ -2,11 +2,11 @@
 <project name="Taquin-BarbierMounier" default=""
 	basedir=".">
 
-	<target name="run" depends="clean">
+	<target name="run" depends="jar, clean">
 		<java jar="dist/Taquin.jar" fork="true" />
 	</target>
 
-	<target name="compile">
+	<target name="compile" depends="clean,javadoc">
 		<mkdir dir="bin" />
 		<javac srcdir="src" destdir="bin" includeantruntime="false" />
 		<echo message="Compilation du projet dans le dossier bin terminee" />
@@ -15,17 +15,24 @@
 	<target name="jar" depends="compile">
 		<jar destfile="dist/Taquin.jar" basedir="bin">
 			<manifest>
-				<attribute name="Main-Class" value="Main" />
+				<attribute name="Main-Class" value="application.Main" />
 			</manifest>
 		</jar>
 		<echo message="Creation du fichier Jar dans le dossier dist terminee" />
 	</target>
 
-	<target name="clean" depends="jar">
+	<target name="clean">
 		<delete dir="bin" />
 		<echo message="Suppression du dossier bin terminee" />
 	</target>
 	
-	<target name="build_run" depends="jar,run"/>
+	<target name="javadoc">
+		<javadoc packagenames="application.*,exceptions.*,jeu.*" sourcepath="src" destdir="doc/javadoc" >
+			<fileset dir="src" defaultexcludes="yes">
+				<include name="*.java" />
+			</fileset>
+		</javadoc>
+		<echo message="Création de la javadoc du projet dans le dossier boc/javadoc terminee" />
+	</target>
 
 </project>

@@ -2,8 +2,6 @@ package jeu;
 
 import java.util.ArrayList;
 
-import exceptions.WinException;
-
 /**
  * Classe de l'intelligence artificiel de resolution du taquin
  * Extends depuis la classe Joueur
@@ -30,6 +28,7 @@ public class Ai extends Joueur{
 	/**
 	 * Methode de resolution de la partie a partir du plateau en creant la recherche
 	 * @param plateau Plateau a resoudre
+	 * @return La liste des commandes a faire pour resoudre le taquin 
 	 */
 	public ArrayList<String> aide(Plateau plateau){
 		Etat depart = new Etat(plateau,0 ,new ArrayList<String>());

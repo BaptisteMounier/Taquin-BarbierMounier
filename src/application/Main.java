@@ -1,8 +1,4 @@
 package application;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-
 import jeu.*;
 
 public class Main {

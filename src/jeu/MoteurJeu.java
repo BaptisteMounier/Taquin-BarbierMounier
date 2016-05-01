@@ -1,6 +1,5 @@
 package jeu;
 
-import application.*;
 import exceptions.WinException;
 
 /**

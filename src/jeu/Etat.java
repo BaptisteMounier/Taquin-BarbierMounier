@@ -145,7 +145,7 @@ public class Etat {
 	
 	/**
 	 * Methode equals permettant de comparer l etat actuel avec un autre etat
-	 * @param Etat de la comparaison
+	 * @param e Etat de la comparaison
 	 */
 	public boolean equals(Object e){
 		return this.plateau.equals(((Etat)(e)).getPlateau());

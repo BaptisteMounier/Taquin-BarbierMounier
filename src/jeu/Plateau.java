@@ -143,8 +143,8 @@ public class Plateau {
 	}
 	
 	/**
-	 * Methode qui regarde si le PLateau est resolu
-	 * @return
+	 * Methode qui regarde si le Plateau est resolu
+	 * @return Vrai si le plateau est resolu, non sinon
 	 */
 	public boolean resolu(){
 		boolean res = true;
@@ -195,7 +195,6 @@ public class Plateau {
 		boolean possible = false;
 		for(int i = 1;i < this.taille && !possible;i++){
 			for(int j = 0;j < this.taille && !possible;j++){
-				int tempo = this.tuiles[i][j].getIndice();
 				if(this.tuiles[i][j].getIndice() == 0){
 					this.switchTuiles(i, j, i-1, j);
 					possible = true;
@@ -288,7 +287,7 @@ public class Plateau {
 	
 	/**
 	 * Methode qui renvois un String contenant l'affichage du Plateau
-	 * @return
+	 * @return La chaine qui decrit le plateau
 	 */
 	public String affiche(){
 		String string = "";

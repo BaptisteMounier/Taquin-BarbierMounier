@@ -123,7 +123,7 @@ public class GameViewController implements Initializable {
 	    	int chiffreCase;
 	    	for(int i=0;i<taille;i++){
 	            for(int j=0;j<taille;j++){
-	            	chiffreCase = i+j;
+	            	chiffreCase = this.jeu.getPlateau().getTuiles()[i][j].getIndice();
 	            	if (chiffreCase==0){
 	            		this.labels[i*taille+j].setText(" "); // si c'est la case 0 ou dite vide, laisse un texte vide
 	            	}
@@ -137,10 +137,12 @@ public class GameViewController implements Initializable {
 	    
 	    @FXML
 	    public void newGame(){
-	    	this.jeu= new Jeu();
-	    	//tuile.getStyleClass().add("tuile");
-	        //grille.getStyleClass().add("gridpane");
-	        //fond.getChildren().add(p);
+	    	this.jeu = new Jeu();
+	        this.jeu.initialisation();
+	        this.tailleCase = 397/4;
+	        this.creaLabels();
+	        this.creaTuile();
+	        this.creaVue();
 	    }
 
 	    @FXML

@@ -58,20 +58,13 @@ public class GameViewController implements Initializable {
 	    public void creaLabels(){
 	    	int taille = this.jeu.getTaille();
 	    	labels = new Label[taille*taille];
-	    	int chiffreCase;
+	    	String chiffreCase;
 	    	for(int i=0;i<taille;i++){
 	            for(int j=0;j<taille;j++){
-	            	if(i==0){
-	            	chiffreCase = i + j;
-	            	}else{
-	            		chiffreCase = i*3 + j +1;
-	            	}
-	            	if (chiffreCase==0){
-	            		this.labels[i*taille+j]=new Label(" ");
-	            	}
-	            	else {
-	            		this.labels[i*taille+j]=new Label(""+chiffreCase);
-	            	}
+	            	if(this.jeu.getPlateau().getTuiles()[i][j].getIndice() == 0)
+	            		chiffreCase = " ";
+	            	else
+	            		chiffreCase = Integer.toString(this.jeu.getPlateau().getTuiles()[i][j].getIndice());
 	            }
 	    	}
 	    }
@@ -124,7 +117,6 @@ public class GameViewController implements Initializable {
 	    	}
 	    }
 	    
-	    /*
 	    public void updateVuePlateau(){
 	    	int taille = this.jeu.getTaille();
 	    	int chiffreCase;
@@ -140,7 +132,7 @@ public class GameViewController implements Initializable {
 	            }
 	    	}
 	        //score.setText(Integer.toString(this.jeu.getJoueur().getScore()));
-	    }*/
+	    }
 	    
 	    @FXML
 	    public void newGame(){
@@ -164,10 +156,10 @@ public class GameViewController implements Initializable {
 		} catch (WinException e) {
 			e.printStackTrace();
 		}
-        //updateVuePlateau();
-	    //Thread th = new Thread();
-	    //th.setDaemon(true);
-	    //th.start();
+        updateVuePlateau();
+	    Thread th = new Thread();
+	    th.setDaemon(true);
+	    th.start();
 
 	    }
 

@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -18,16 +19,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import jeu.Jeu;
 
+/** Contrôleur de la fenêtre de jeu */
 public class GameViewController implements Initializable {
 	
+		/**
+		 * variable du fichier .fxml
+		 */
 		@FXML
 	    private String score;
 	    @FXML
 	    private GridPane grille;
 	    @FXML
 	    private Pane fond;
+	    @FXML
+	    private Button newgame;
 	    
-
+	    /**
+	     * variables globale hors .fxml
+	     */
 	    private Jeu jeu;
 	    private Pane[] tuile;
 	    private int selection; 
@@ -36,7 +45,9 @@ public class GameViewController implements Initializable {
 	    private double tailleCase;
 		
 
-
+	    /**
+	     * Intialisation de la vue
+	     */
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	        this.jeu = new Jeu();
@@ -47,13 +58,24 @@ public class GameViewController implements Initializable {
 	        this.creaVue();
 	    }
 	    
+	    /**
+	     * retourne le jeu du controller
+	     * @return jeu
+	     */
 	    public Jeu getJeu(){
 	    	return this.jeu;
 	    }
 	    
+	    /**
+	     * réaffection du jeu
+	     * @param jeu
+	     */
 	    public void setJeu(Jeu jeu){
 	    	this.jeu=jeu;
 	    }
+	    
+	    /** Initialisation des labels des cases
+	     */
 	    
 	    public void creaLabels(){
 	    	int taille = this.jeu.getTaille();
@@ -70,7 +92,9 @@ public class GameViewController implements Initializable {
 	    	}
 	    }
 	    
-	    
+	    /**
+	     * Initialisation du tableau des tuiles
+	     */
 	    public void creaTuile(){
 	    	int taille = this.jeu.getTaille();
 	    	tuile = new Pane[taille*taille];
@@ -97,11 +121,15 @@ public class GameViewController implements Initializable {
 	            });
 	    	}
 	    }
+	    
+	    /**
+	     * placement des tuiles et leur affichage
+	     */
 	    public void creaVue(){
 	    	int taille = this.jeu.getTaille();
 	    	for(int i=0;i<tuile.length;i++){
 	            tuile[i].getStyleClass().add("tuile"); 
-	            labels[i].getStyleClass().add("tuile");
+	            labels[i].getStyleClass().add("pane");
 	            grille.getStyleClass().add("gridpane");
 	            fond.getChildren().add(tuile[i]);
 	            tuile[i].getChildren().add(labels[i]);
@@ -118,6 +146,9 @@ public class GameViewController implements Initializable {
 	    	}
 	    }
 	    
+	    /**
+	     * actualisation de la vue pour afficher les modifications des coups jouer
+	     */
 	    public void updateVuePlateau(){
 	    	int taille = this.jeu.getTaille();
 	    	int chiffreCase;
@@ -132,9 +163,12 @@ public class GameViewController implements Initializable {
 	            	}
 	            }
 	    	}
-	        //score.setText(Integer.toString(this.jeu.getJoueur().getScore()));
+	        score =Integer.toString(this.jeu.getJoueur().getScore());
 	    }
 	    
+	    /**
+	     * remise à zero du jeu
+	     */
 	    @FXML
 	    public void newGame(){
 	    	this.jeu = new Jeu();
@@ -145,12 +179,25 @@ public class GameViewController implements Initializable {
 	        this.creaVue();
 	    }
 
+	    /**
+	     * remise à zero du jeu
+	     */
 	    @FXML
 	    private void start(MouseEvent event) {
 	        System.out.println("Clic de souris sur le bouton start");
 	        this.jeu= new Jeu();
+	        this.jeu.initialisation();
+	        this.tailleCase = 397/4;
+	        this.creaLabels();
+	        this.creaTuile();
+	        this.creaVue();
 	    }
-	    
+	    /**
+	     * gestion du mouvement des tuiles.
+	     * récupération de la touche presser
+	     * appel commande mouvement
+	     * @param ke  touche pressé
+	     */
 	    @FXML
 	    public void keyPressed(KeyEvent ke) {
 	       String touche = ke.getText();

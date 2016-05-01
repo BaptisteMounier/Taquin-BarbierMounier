@@ -1,6 +1,8 @@
 .pane {
     -fx-background-color: #98FF32;
     -fx-border-color: black;
+    -fx-halignment: center;
+     -fx-alignment: CENTER;
 }
 
 .gridpane {
@@ -18,4 +20,6 @@
     /*-fx-font: "Cambria";*/
     -fx-font-size: 32;
     -fx-padding: 26 40 26 40;
+    -fx-halignment: center;
+     -fx-alignment: CENTER;
 }

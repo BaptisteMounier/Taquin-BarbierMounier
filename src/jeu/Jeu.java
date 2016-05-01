@@ -98,8 +98,6 @@ public class Jeu {
 		this.plateau = new Plateau(this.taille, this.nbMelange);
 		this.plateau.initialisation();
 		this.nbCoups = 0;
-		this.joueur.initialisation();
-		this.ai.initialisation();
 		this.save = new Sauvegarde(this);
 		this.affiche();
 	}

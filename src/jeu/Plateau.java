@@ -1,5 +1,10 @@
 package jeu;
 
+/**
+ * 
+ * @author Baptiste
+ *
+ */
 public class Plateau {
 	
 	private Tuile[][] tuiles;
@@ -106,10 +111,6 @@ public class Plateau {
 	}
 	
 	public void switchTuiles(int x_a, int y_a, int x_b, int y_b){
-		System.out.println(x_a);
-		System.out.println(y_a);
-		System.out.println(x_b);
-		System.out.println(y_b);
 		Tuile temporaire = this.tuiles[x_a][y_a];
 		this.tuiles[x_a][y_a] = this.tuiles[x_b][y_b];
 		this.tuiles[x_b][y_b] = temporaire;

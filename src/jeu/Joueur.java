@@ -54,18 +54,27 @@ public class Joueur {
 		String com = sc.nextLine();
 		return com;
 	}
-
-	public void initialisation() {
-	}
 	
+	/**
+	 * Getteur du nom du joueur
+	 * @return Le nom du joueur
+	 */
 	public String getNom(){
 		return this.nom;
 	}
 	
+	/**
+	 * Getteur du score du joueur
+	 * @return Le score du joueur
+	 */
 	public int getScore(){
 		return this.score;
 	}
 	
+	/**
+	 * Getteur du top score du joueur
+	 * @return Le top du joueur
+	 */
 	public int getTop(){
 		return this.top;
 	}
